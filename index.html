@@ -1,0 +1,778 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MathConnect</title>
+
+    <style>
+    
+    .progress-container {
+    width: 100%;
+    max-width: 500px;
+    height: 25px;
+    background: #ddd;
+    border-radius: 15px;
+    margin: 20px auto;
+    overflow: hidden;
+}
+
+#progressBar {
+    width: 0%;
+    height: 100%;
+    background: #1e3a8a;
+    border-radius: 15px;
+    transition: width 0.5s;
+}
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+    font-family: Arial, sans-serif;
+    background: #f4f7fb;
+    color: #222;
+    line-height: 1.6;
+}
+
+        header {
+            background: #1e3a8a;
+            color: white;
+            padding: 18px;
+            text-align: center;
+        }
+
+        nav {
+            margin-top: 15px;
+        }
+
+        nav button {
+            background: transparent;
+            color: white;
+            border: none;
+            margin: 5px;
+            padding: 8px;
+            cursor: pointer;
+            font-size: 15px;
+        }
+
+        .page {
+            display: none;
+            padding: 40px 20px;
+            max-width: 900px;
+            margin: auto;
+        }
+
+        .active {
+            display: block;
+        }
+
+        .hero {
+            text-align: center;
+            padding: 50px 20px;
+        }
+
+        .hero h2 {
+            font-size: 36px;
+            margin-bottom: 20px;
+        }
+
+        .hero p {
+            font-size: 18px;
+            line-height: 1.6;
+        }
+
+        .cards {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            flex-wrap: wrap;
+            margin-top: 30px;
+        }
+
+      .card {
+    background: white;
+    width: 260px;
+    padding: 25px;
+    border-radius: 15px;
+    text-align: center;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s;
+}
+    .card:hover {
+    transform: translateY(-5px);
+}
+        .card h3 {
+            margin-bottom: 12px;
+        }
+
+       button.action {
+    background: #1e3a8a;
+    color: white;
+    border: none;
+    padding: 13px 22px;
+    border-radius: 8px;
+    margin-top: 15px;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+        input {
+            padding: 12px;
+            width: 100%;
+            max-width: 350px;
+            margin: 10px 0;
+            border: 1px solid #ccc;
+            border-radius: 6px;
+        }
+
+        .quiz-question {
+            background: white;
+            padding: 20px;
+            margin: 15px 0;
+            border-radius: 10px;
+        }
+
+        footer {
+            text-align: center;
+            padding: 25px;
+            margin-top: 40px;
+            background: #eee;
+        }
+    .why-title {
+    text-align: center;
+    margin-top: 30px;
+    margin-bottom: 10px;
+}
+    .about {
+    background: white;
+    padding: 35px 25px;
+    margin-top: 40px;
+    border-radius: 12px;
+    text-align: center;
+}
+
+.about h2 {
+    margin-bottom: 20px;
+}
+
+.about p {
+    margin: 15px 0;
+    line-height: 1.6;
+}
+    .contact {
+    background: white;
+    padding: 35px 25px;
+    margin-top: 40px;
+    border-radius: 12px;
+    text-align: center;
+}
+
+.contact h2 {
+    margin-bottom: 15px;
+}
+
+.contact textarea {
+    width: 100%;
+    max-width: 500px;
+    height: 120px;
+    padding: 12px;
+    margin-top: 10px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+}
+    header {
+    background: #1e3a8a;
+    color: white;
+    padding: 25px 20px;
+    text-align: center;
+}
+
+header h1 {
+    font-size: 32px;
+    margin-bottom: 8px;
+}
+
+header p {
+    font-size: 16px;
+    margin-bottom: 15px;
+}
+
+nav {
+    margin-top: 15px;
+}
+
+nav button {
+    background: transparent;
+    color: white;
+    border: 1px solid white;
+    border-radius: 6px;
+    padding: 8px 12px;
+    margin: 5px;
+    cursor: pointer;
+}
+    footer {
+    background: #1e3a8a;
+    color: white;
+    text-align: center;
+    padding: 30px 20px;
+    margin-top: 50px;
+}
+
+footer h3 {
+    margin-bottom: 10px;
+}
+
+footer p {
+    margin: 8px 0;
+}
+    .team {
+    text-align: center;
+    margin-top: 50px;
+}
+
+.team h2 {
+    margin-bottom: 25px;
+}
+    </style>
+</head>
+
+<body>
+
+<header>
+    <h1>🧮 MathConnect</h1>
+    <p>Learn Mathematics. Solve Problems. Build Your Future.</p>
+
+    <nav>
+        <button onclick="showPage('home')">Home</button>
+        <button onclick="showPage('courses')">Courses</button>
+        <button onclick="showPage('practice')">Practice</button>
+        <button onclick="showPage('dashboard')">Dashboard</button>
+        <button onclick="showPage('login')">Login</button>
+        <button onclick="showPage('solver')">🤖 Solver</button>
+    </nav>
+    
+</header>
+
+
+<!-- HOME -->
+<section id="home" class="page active">
+
+    <div class="hero">
+
+        <h2>Welcome to MathConnect 👋</h2>
+
+        <p><strong>Created by Mahmud Isah Muhammad</strong></p>
+
+        <br>
+
+        <p>
+            A digital learning platform designed to help students
+            understand Mathematics through simple lessons,
+            practice and tutoring.
+        </p>
+
+        <button class="action" onclick="showPage('courses')">
+            🚀 Get Started
+        </button>
+
+    </div>
+
+    <h2 class="why-title">Why Choose MathConnect?</h2>
+
+    <div class="cards">
+
+        <div class="card">
+            <h3>📚 Easy Learning</h3>
+            <p>Learn Mathematics through simple and easy-to-understand lessons.</p>
+        </div>
+
+        <div class="card">
+            <h3>🧮 Practice Questions</h3>
+            <p>Test your knowledge and improve your Mathematics skills.</p>
+        </div>
+
+        <div class="card">
+            <h3>🎯 Track Your Progress</h3>
+            <p>See your quiz results and monitor your learning progress.</p>
+        </div>
+
+    </div>
+    <section class="about">
+
+    <h2>About MathConnect</h2>
+
+    <p>
+        MathConnect is a digital learning platform designed to make
+        Mathematics easier, more interactive, and accessible to students.
+    </p>
+
+    <p>
+        Our goal is to help students learn through simple lessons,
+        practice questions, step-by-step problem solving, and progress tracking.
+    </p>
+
+    <p>
+        With MathConnect, students can learn, practice, and improve
+        their Mathematics skills at their own pace.
+    </p>
+
+</section>
+    <section class="team">
+
+    <h2>👥 Meet Our Team</h2>
+
+    <div class="cards">
+
+        <div class="card">
+            <h3>👨‍💻 Mahmud Isah Muhammad</h3>
+            <p><strong>Founder & Creator</strong></p>
+            <p>
+                Mathematics student and creator of MathConnect.
+            </p>
+        </div>
+
+        <div class="card">
+            <h3>👤 Team Member</h3>
+            <p><strong>Technology & Development</strong></p>
+            <p>
+                Helps with building and improving the MathConnect platform.
+            </p>
+        </div>
+
+        <div class="card">
+            <h3>👤 Team Member</h3>
+            <p><strong>Education & Content</strong></p>
+            <p>
+                Helps create Mathematics lessons and learning materials.
+            </p>
+        </div>
+
+    </div>
+
+</section>
+    <section class="contact">
+
+    <h2>📞 Contact MathConnect</h2>
+
+    <p>
+        Have a question or suggestion? Send us a message.
+    </p>
+
+    <input type="text" id="contactName" placeholder="Your Name">
+
+    <input type="email" id="contactEmail" placeholder="Your Email">
+
+    <br>
+
+    <textarea id="contactMessage"
+        placeholder="Write your message here..."></textarea>
+
+    <br>
+
+    <button class="action" onclick="sendMessage()">
+        Send Message
+    </button>
+
+    <p id="contactResult"></p>
+
+</section>
+
+</section>
+
+<!-- COURSES -->
+<section id="courses" class="page">
+
+    <h2>📚 Mathematics Courses</h2>
+
+    <div class="cards">
+
+        <div class="card">
+            <h3>📘 Algebra</h3>
+            <p>Learn equations, expressions and functions.</p>
+
+            <button class="action" onclick="showPage('algebra')">
+                Start Course
+            </button>
+        </div>
+
+        <div class="card">
+            <h3>📐 Geometry</h3>
+            <p>Learn shapes, angles and measurements.</p>
+
+            <button class="action">
+                Coming Soon
+            </button>
+        </div>
+
+        <div class="card">
+            <h3>📊 Statistics</h3>
+            <p>Learn averages, probability and data analysis.</p>
+
+            <button class="action">
+                Coming Soon
+            </button>
+        </div>
+
+        <div class="card">
+            <h3>∫ Calculus</h3>
+            <p>Learn limits, differentiation and integration.</p>
+
+            <button class="action">
+                Coming Soon
+            </button>
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- ALGEBRA -->
+<section id="algebra" class="page">
+
+    <h2>📘 Introduction to Algebra</h2>
+
+    <br>
+
+    <p>
+        Algebra uses letters and symbols to represent numbers.
+    </p>
+
+    <br>
+
+    <h3>Example</h3>
+
+    <br>
+
+    <p><strong>Solve: x + 5 = 12</strong></p>
+
+    <br>
+
+    <p>Subtract 5 from both sides:</p>
+
+    <br>
+
+    <p><strong>x = 12 - 5</strong></p>
+
+    <br>
+
+    <p><strong>Therefore, x = 7</strong></p>
+
+    <button class="action" onclick="showPage('practice')">
+        Practice This Topic
+    </button>
+
+</section>
+
+
+<!-- PRACTICE -->
+<section id="practice" class="page">
+
+    <h2>📝 Mathematics Practice Quiz</h2>
+
+    <p>Answer all 5 questions.</p>
+
+    <div class="quiz-question">
+        <p><strong>1. Solve: x + 7 = 15</strong></p>
+        <input type="number" id="q1">
+    </div>
+
+    <div class="quiz-question">
+        <p><strong>2. What is 6 × 8?</strong></p>
+        <input type="number" id="q2">
+    </div>
+
+    <div class="quiz-question">
+        <p><strong>3. What is 25 ÷ 5?</strong></p>
+        <input type="number" id="q3">
+    </div>
+
+    <div class="quiz-question">
+        <p><strong>4. Solve: 2x = 10</strong></p>
+        <input type="number" id="q4">
+    </div>
+
+    <div class="quiz-question">
+        <p><strong>5. What is 10²?</strong></p>
+        <input type="number" id="q5">
+    </div>
+
+<button class="action" onclick="submitQuiz()">
+    Submit Quiz
+    
+</button>
+
+<button class="action" onclick="tryAgain()">
+    🔄 Try Again
+</button>
+       
+    </button>
+
+<h2 id="score"></h2>
+
+<div class="progress-container">
+    <div id="progressBar"></div>
+</div>
+</section>
+
+
+<!-- DASHBOARD -->
+<section id="dashboard" class="page">
+
+    <h2>🏆 Student Dashboard</h2>
+
+    <div class="cards">
+
+        <div class="card">
+            <h3>📚 Courses</h3>
+            <p>4 Mathematics courses</p>
+        </div>
+
+        <div class="card">
+            <h3>📝 Practice</h3>
+            <p>5 quiz questions</p>
+        </div>
+
+        <div class="card">
+            <h3>🎯 Progress</h3>
+            <p id="progress">Start your first quiz.</p>
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- LOGIN -->
+<section id="login" class="page">
+
+    <h2>👤 Student Login</h2>
+
+    <br>
+
+    <input type="email" id="email" placeholder="Enter your email">
+
+    <br>
+
+    <input type="password" id="password" placeholder="Enter your password">
+
+    <br>
+
+    <button class="action" onclick="login()">
+        Login
+    </button>
+
+    <p id="loginMessage"></p>
+
+</section>
+
+    <!-- MATH SOLVER -->
+<section id="solver" class="page">
+
+    <h2>🤖 MathConnect Problem Solver</h2>
+
+    <p>Enter a simple linear equation, for example:</p>
+
+    <p><strong>2x + 5 = 15</strong></p>
+
+    <br>
+
+    <input
+        type="text"
+        id="equation"
+        placeholder="Enter an equation"
+    >
+
+    <br>
+
+    <button class="action" onclick="solveEquation()">
+        Solve
+    </button>
+
+    <div id="solution"></div>
+
+</section>
+
+<footer>
+
+    <h3>🧮 MathConnect</h3>
+
+    <p>Learn. Practice. Succeed.</p>
+
+    <p>Created by Mahmud Isah Muhammad</p>
+
+    <p>© 2026 MathConnect. All Rights Reserved.</p>
+
+</footer>
+
+<script>
+function tryAgain() {
+
+    document.getElementById("q1").value = "";
+    document.getElementById("q2").value = "";
+    document.getElementById("q3").value = "";
+    document.getElementById("q4").value = "";
+    document.getElementById("q5").value = "";
+
+    document.getElementById("score").innerHTML = "";
+}
+function solveEquation() {
+
+    let equation = document.getElementById("equation").value
+        .replace(/\s/g, "")
+        .toLowerCase();
+
+    let solution = document.getElementById("solution");
+
+    let parts = equation.split("=");
+
+    if (parts.length !== 2) {
+        solution.innerHTML =
+            "<p>❌ Enter an equation like: 3x + 4 = 19</p>";
+        return;
+    }
+
+    let right = Number(parts[1]);
+
+    if (isNaN(right)) {
+        solution.innerHTML =
+            "<p>❌ Please enter a valid equation.</p>";
+        return;
+    }
+
+    let match = parts[0].match(/^([+-]?\d*\.?\d*)x([+-]\d+\.?\d*)?$/);
+
+    if (!match) {
+        solution.innerHTML =
+            "<p>⚠️ Use the format: ax + b = c</p>";
+        return;
+    }
+
+    let coefficient = match[1];
+
+    if (coefficient === "" || coefficient === "+") {
+        coefficient = 1;
+    } else if (coefficient === "-") {
+        coefficient = -1;
+    } else {
+        coefficient = Number(coefficient);
+    }
+
+    let constant = match[2] ? Number(match[2]) : 0;
+
+    let newRight = right - constant;
+    let x = newRight / coefficient;
+
+    let sign = constant >= 0 ? "+" : "-";
+    let absoluteConstant = Math.abs(constant);
+
+    solution.innerHTML = `
+        <br>
+        <h3>📖 Step-by-Step Solution</h3>
+
+        <p><strong>Original equation:</strong></p>
+        <p>${coefficient}x ${sign} ${absoluteConstant} = ${right}</p>
+
+        <br>
+
+        <p><strong>Step 1:</strong> Move the constant.</p>
+        <p>${coefficient}x = ${newRight}</p>
+
+        <br>
+
+        <p><strong>Step 2:</strong> Divide by ${coefficient}.</p>
+        <p><strong>x = ${x}</strong></p>
+
+        <br>
+
+        <h3>🎉 Answer: x = ${x}</h3>
+    `;
+}
+function showPage(pageName) {
+
+    let pages = document.querySelectorAll(".page");
+
+    pages.forEach(function(page) {
+        page.classList.remove("active");
+    });
+
+    document.getElementById(pageName).classList.add("active");
+
+    window.scrollTo(0, 0);
+}
+
+
+function submitQuiz() {
+    
+
+    let score = 0;
+
+    if (document.getElementById("q1").value == 8) score++;
+    if (document.getElementById("q2").value == 48) score++;
+    if (document.getElementById("q3").value == 5) score++;
+    if (document.getElementById("q4").value == 5) score++;
+    if (document.getElementById("q5").value == 100) score++;
+
+    let message = "";
+
+    if (score == 5) {
+        message = "🌟 Excellent! Perfect score!";
+    }
+    else if (score >= 3) {
+        message = "👍 Good job! Keep learning!";
+    }
+    else {
+        message = "📚 Keep practicing! You can improve!";
+    }
+
+    document.getElementById("score").innerHTML =
+        "🎉 Your Score: " + score + " / 5<br>" + message;
+    let percentage = (score / 5) * 100;
+
+document.getElementById("progressBar").style.width =
+    percentage + "%";
+}
+
+function login() {
+
+    let email = document.getElementById("email").value;
+
+    if (email === "") {
+        document.getElementById("loginMessage").innerHTML =
+            "Please enter your email.";
+        return;
+    }
+
+    document.getElementById("loginMessage").innerHTML =
+        "✅ Welcome to MathConnect, " + email + "!";
+
+}
+function sendMessage() {
+
+    let name = document.getElementById("contactName").value;
+    let email = document.getElementById("contactEmail").value;
+    let message = document.getElementById("contactMessage").value;
+
+    if (name === "" || email === "" || message === "") {
+
+        document.getElementById("contactResult").innerHTML =
+            "⚠️ Please fill in all the boxes.";
+
+    } else {
+
+        document.getElementById("contactResult").innerHTML =
+            "✅ Thank you, " + name + "! Your message has been received.";
+
+        document.getElementById("contactName").value = "";
+        document.getElementById("contactEmail").value = "";
+        document.getElementById("contactMessage").value = "";
+    }
+}
+
+</script>
+
+</body>
+</html>
