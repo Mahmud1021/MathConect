@@ -1,0 +1,237 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Student Registration | MathConect</title>
+
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: Arial, sans-serif;
+      background: #f0f6ff;
+      color: #102b50;
+      padding: 25px 15px;
+    }
+
+    .container {
+      max-width: 480px;
+      margin: 25px auto;
+      background: white;
+      padding: 30px;
+      border-radius: 15px;
+      box-shadow: 0 5px 25px #102b5015;
+    }
+
+    .logo {
+      text-align: center;
+      color: #1264d8;
+      font-size: 27px;
+      font-weight: bold;
+      margin-bottom: 10px;
+    }
+
+    h2 {
+      text-align: center;
+      margin-bottom: 8px;
+    }
+
+    .subtitle {
+      text-align: center;
+      color: #64748b;
+      margin-bottom: 25px;
+    }
+
+    label {
+      display: block;
+      margin: 15px 0 7px;
+      font-weight: bold;
+    }
+
+    input, select {
+      width: 100%;
+      padding: 13px;
+      border: 1px solid #cbd5e1;
+      border-radius: 7px;
+      font-size: 15px;
+      background: white;
+    }
+
+    input:focus, select:focus {
+      outline: 2px solid #1264d8;
+      border-color: #1264d8;
+    }
+
+    button {
+      width: 100%;
+      background: #1264d8;
+      color: white;
+      border: none;
+      padding: 14px;
+      border-radius: 7px;
+      font-size: 16px;
+      font-weight: bold;
+      margin-top: 23px;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background: #084da9;
+    }
+
+    #message {
+      margin-top: 18px;
+      padding: 12px;
+      border-radius: 7px;
+      display: none;
+      text-align: center;
+    }
+
+    .success {
+      display: block !important;
+      background: #e4f8ed;
+      color: #166534;
+    }
+
+    .error {
+      display: block !important;
+      background: #feecec;
+      color: #b91c1c;
+    }
+
+    .back {
+      display: block;
+      text-align: center;
+      margin-top: 20px;
+      color: #1264d8;
+      text-decoration: none;
+    }
+
+    .notice {
+      font-size: 12px;
+      color: #64748b;
+      margin-top: 15px;
+      line-height: 1.5;
+    }
+  </style>
+</head>
+
+<body>
+
+<div class="container">
+
+  <div class="logo">MathConect.</div>
+
+  <h2>Student Registration</h2>
+
+  <p class="subtitle">
+    Join our mathematics learning community.
+  </p>
+
+  <form id="registrationForm">
+
+    <label for="fullname">Full Name</label>
+    <input
+      type="text"
+      id="fullname"
+      placeholder="Enter your full name"
+      required
+      minlength="2"
+    >
+
+    <label for="email">Email Address</label>
+    <input
+      type="email"
+      id="email"
+      placeholder="Enter your email"
+      required
+    >
+
+    <label for="institution">University / Institution</label>
+    <input
+      type="text"
+      id="institution"
+      placeholder="Enter your institution"
+      required
+    >
+
+    <label for="course">Select Your Course</label>
+    <select id="course" required>
+      <option value="">Choose a course</option>
+      <option value="Pure Mathematics">
+        Pure Mathematics
+      </option>
+      <option value="Statistics">
+        Statistics
+      </option>
+      <option value="Physics">
+        Physics
+      </option>
+      <option value="Computer Science">
+        Computer Science
+      </option>
+      <option value="Other">
+        Other
+      </option>
+    </select>
+
+    <button type="submit">
+      Continue Registration
+    </button>
+
+  </form>
+
+  <div id="message" role="status"></div>
+
+  <p class="notice">
+    Demonstration only: this form does not transmit or save
+    your information and does not create an account.
+    Do not enter real personal information.
+  </p>
+
+  <a href="index.html" class="back">
+    ← Back to Homepage
+  </a>
+
+</div>
+
+<script>
+  const form = document.getElementById("registrationForm");
+  const message = document.getElementById("message");
+
+  form.addEventListener("submit", function(event) {
+    event.preventDefault();
+
+    message.className = "";
+    message.style.display = "none";
+
+    if (!form.checkValidity()) {
+      form.reportValidity();
+      return;
+    }
+
+    const name = document.getElementById("fullname").value.trim();
+
+    if (name.length < 2) {
+      message.textContent = "Please enter your full name.";
+      message.className = "error";
+      return;
+    }
+
+    message.textContent =
+      "Registration form tested successfully! " +
+      "Secure account registration will be connected in Stage 2.";
+
+    message.className = "success";
+    form.reset();
+  });
+</script>
+
+</body>
+</html>
