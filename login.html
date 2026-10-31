@@ -1,0 +1,96 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>MathConect Student Login</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f1f6fc;
+      display: grid;
+      place-items: center;
+      min-height: 100vh;
+      margin: 0;
+    }
+    .box {
+      background: white;
+      padding: 28px;
+      border-radius: 12px;
+      width: 85%;
+      max-width: 380px;
+    }
+    input, button {
+      box-sizing: border-box;
+      width: 100%;
+      padding: 13px;
+      margin: 10px 0;
+      border-radius: 7px;
+    }
+    input { border: 1px solid #bbb; }
+    button {
+      background: #0756a5;
+      color: white;
+      border: 0;
+      cursor: pointer;
+    }
+    #message { overflow-wrap: anywhere; }
+  </style>
+</head>
+<body>
+  <div class="box">
+    <h1>MathConect</h1>
+    <h2>Student Login</h2>
+
+    <form id="loginForm">
+      <input id="email" type="email"
+        placeholder="Email address" required>
+
+      <input id="password" type="password"
+        placeholder="Password" required>
+
+      <button type="submit">Login</button>
+    </form>
+
+    <p id="message"></p>
+    <p><a href="register.html">Create an account</a></p>
+  </div>
+
+  <script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-auth-compat.js"></script>
+
+  <script>
+    const firebaseConfig = {
+      apiKey: "AIzaSyD-Rq8jeNeGHNApk1fbbTKiSgDxHWKM5tI",
+      authDomain: "mathconnect-b54be.firebaseapp.com",
+      projectId: "mathconnect-b54be",
+      storageBucket: "mathconnect-b54be.firebasestorage.app",
+      messagingSenderId: "991575705508",
+      appId: "1:991575705508:web:fb9c5d9790eb732389a331"
+    };
+
+    firebase.initializeApp(firebaseConfig);
+    const auth = firebase.auth();
+
+    document.getElementById("loginForm")
+      .addEventListener("submit", async function(event) {
+        event.preventDefault();
+
+        const email = document.getElementById("email").value.trim();
+        const password = document.getElementById("password").value;
+        const message = document.getElementById("message");
+
+        message.textContent = "Signing in...";
+
+        try {
+          await auth.signInWithEmailAndPassword(email, password);
+          window.location.href = "dashboard.html";
+        } catch (error) {
+          message.textContent =
+            "Login failed: " + error.message;
+        }
+      });
+  </script>
+</body>
+</html>
