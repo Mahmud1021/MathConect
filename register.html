@@ -2,287 +2,194 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Register | MathConect</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>MathConect Student Registration</title>
 
-<style>
-* {
-  box-sizing: border-box;
-}
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f1f6fc;
+      margin: 0;
+      padding: 25px 12px;
+      color: #183153;
+    }
 
-body {
-  margin: 0;
-  padding: 20px;
-  font-family: Arial, sans-serif;
-  background: #f0f6ff;
-  color: #102b50;
-}
+    .container {
+      max-width: 420px;
+      margin: 20px auto;
+      background: white;
+      padding: 25px;
+      border-radius: 12px;
+      box-shadow: 0 3px 12px #0001;
+    }
 
-.container {
-  max-width: 460px;
-  margin: 25px auto;
-  padding: 28px;
-  background: white;
-  border-radius: 15px;
-  box-shadow: 0 5px 25px #102b5015;
-}
+    h1 { color: #0756a5; }
 
-.logo {
-  text-align: center;
-  color: #1264d8;
-  font-size: 27px;
-  font-weight: bold;
-}
+    input, button {
+      box-sizing: border-box;
+      width: 100%;
+      padding: 13px;
+      margin: 9px 0;
+      border-radius: 7px;
+      font-size: 15px;
+    }
 
-h2, .subtitle {
-  text-align: center;
-}
+    input { border: 1px solid #bbb; }
 
-.subtitle {
-  color: #64748b;
-  margin-bottom: 25px;
-}
+    button {
+      background: #0756a5;
+      color: white;
+      border: none;
+      cursor: pointer;
+    }
 
-label {
-  display: block;
-  font-weight: bold;
-  margin: 15px 0 7px;
-}
+    #message {
+      overflow-wrap: anywhere;
+      line-height: 1.5;
+    }
 
-input, select {
-  width: 100%;
-  padding: 13px;
-  border: 1px solid #cbd5e1;
-  border-radius: 7px;
-  font-size: 15px;
-  background: white;
-}
-
-input:focus, select:focus {
-  outline: 2px solid #1264d8;
-}
-
-button {
-  width: 100%;
-  padding: 14px;
-  margin-top: 22px;
-  border: none;
-  border-radius: 7px;
-  background: #1264d8;
-  color: white;
-  font-size: 16px;
-  font-weight: bold;
-  cursor: pointer;
-}
-
-button:disabled {
-  opacity: 0.6;
-  cursor: wait;
-}
-
-#message {
-  display: none;
-  padding: 12px;
-  margin-top: 18px;
-  border-radius: 7px;
-  line-height: 1.5;
-  overflow-wrap: anywhere;
-}
-
-.success {
-  display: block !important;
-  background: #e4f8ed;
-  color: #166534;
-}
-
-.error {
-  display: block !important;
-  background: #feecec;
-  color: #b91c1c;
-}
-
-.back {
-  display: block;
-  text-align: center;
-  margin-top: 20px;
-  color: #1264d8;
-  text-decoration: none;
-}
-
-.note {
-  font-size: 12px;
-  color: #64748b;
-  margin-top: 18px;
-  line-height: 1.5;
-}
-</style>
+    a { color: #0756a5; }
+  </style>
 </head>
 
 <body>
+  <div class="container">
+    <h1>MathConect</h1>
+    <h2>Create Student Account</h2>
 
-<div class="container">
+    <form id="registerForm">
+      <input id="name" type="text"
+        placeholder="Full Name" required>
 
-  <div class="logo">MathConect.</div>
+      <input id="email" type="email"
+        placeholder="Email Address" required>
 
-  <h2>Create Student Account</h2>
+      <input id="university" type="text"
+        placeholder="University" required>
 
-  <p class="subtitle">
-    Join our mathematics learning community.
-  </p>
+      <input id="course" type="text"
+        placeholder="Course of Study" required>
 
-  <form id="registrationForm">
+      <input id="password" type="password"
+        placeholder="Password (minimum 6 characters)"
+        minlength="6" required>
 
-    <label for="fullname">Full Name</label>
-    <input id="fullname" type="text"
-      placeholder="Enter full name" required minlength="2">
+      <input id="confirmPassword" type="password"
+        placeholder="Confirm Password" required>
 
-    <label for="email">Email Address</label>
-    <input id="email" type="email"
-      placeholder="Enter email address" required>
+      <button type="submit" id="registerBtn">
+        Create Account
+      </button>
+    </form>
 
-    <label for="institution">University / Institution</label>
-    <input id="institution" type="text"
-      placeholder="Enter institution" required>
+    <p id="message" role="status"></p>
 
-    <label for="course">Select Course</label>
-    <select id="course" required>
-      <option value="">Choose a course</option>
-      <option>Pure Mathematics</option>
-      <option>Statistics</option>
-      <option>Physics</option>
-      <option>Computer Science</option>
-      <option>Other</option>
-    </select>
+    <p>Already registered?
+      <a href="login.html">Login here</a>
+    </p>
+  </div>
 
-    <label for="password">Password</label>
-    <input id="password" type="password"
-      placeholder="At least 6 characters"
-      minlength="6" required>
+  <script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-auth-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-firestore-compat.js"></script>
 
-    <label for="confirmPassword">Confirm Password</label>
-    <input id="confirmPassword" type="password"
-      placeholder="Enter password again" required>
-
-    <button id="registerButton" type="submit">
-      Create Account
-    </button>
-
-  </form>
-
-  <div id="message" role="status"></div>
-
-  <p class="note">
-    Your password is handled by Firebase Authentication.
-    Keep it private. Institution and course details are
-    not yet saved to a student profile database.
-  </p>
-
-  <a href="index.html" class="back">
-    ← Back to Homepage
-  </a>
-
-</div>
-
-<script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-app-compat.js"></script>
-<script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-auth-compat.js"></script>
-
-<script>
-const firebaseConfig = {
-  apiKey: "AIzaSyD-Rq8jeNeGHNApk1fbbTKiSgDxHWKM5tI",
-  authDomain: "mathconnect-b54be.firebaseapp.com",
-  projectId: "mathconnect-b54be",
-  storageBucket: "mathconnect-b54be.firebasestorage.app",
-  messagingSenderId: "991575705508",
-  appId: "1:991575705508:web:fb9c5d9790eb732389a331"
-};
-
-firebase.initializeApp(firebaseConfig);
-
-const auth = firebase.auth();
-
-const form = document.getElementById("registrationForm");
-const message = document.getElementById("message");
-const button = document.getElementById("registerButton");
-
-function showMessage(text, type) {
-  message.textContent = text;
-  message.className = type;
-}
-
-form.addEventListener("submit", async function(event) {
-  event.preventDefault();
-
-  const name = document.getElementById("fullname").value.trim();
-  const email = document.getElementById("email").value.trim();
-  const password = document.getElementById("password").value;
-  const confirmPassword =
-    document.getElementById("confirmPassword").value;
-
-  if (password.length < 6) {
-    showMessage(
-      "Password must contain at least 6 characters.",
-      "error"
-    );
-    return;
-  }
-
-  if (password !== confirmPassword) {
-    showMessage("Your passwords do not match.", "error");
-    return;
-  }
-
-  button.disabled = true;
-  button.textContent = "Creating account...";
-
-  try {
-    const result = await auth.createUserWithEmailAndPassword(
-      email,
-      password
-    );
-
-    await result.user.updateProfile({
-      displayName: name
-    });
-
-    await result.user.sendEmailVerification();
-
-    showMessage(
-      "Account created successfully! Please check your email " +
-      "and click the verification link. Your name is saved in " +
-      "your Firebase account.",
-      "success"
-    );
-
-    form.reset();
-
-  } catch (error) {
-    const messages = {
-      "auth/email-already-in-use":
-        "This email already has an account. Please log in.",
-
-      "auth/invalid-email":
-        "Please enter a valid email address.",
-
-      "auth/weak-password":
-        "Please choose a stronger password.",
-
-      "auth/network-request-failed":
-        "Network problem. Check your internet and try again."
+  <script>
+    const firebaseConfig = {
+      apiKey: "AIzaSyD-Rq8jeNeGHNApk1fbbTKiSgDxHWKM5tI",
+      authDomain: "mathconnect-b54be.firebaseapp.com",
+      projectId: "mathconnect-b54be",
+      storageBucket: "mathconnect-b54be.firebasestorage.app",
+      messagingSenderId: "991575705508",
+      appId: "1:991575705508:web:fb9c5d9790eb732389a331"
     };
 
-    showMessage(
-      messages[error.code] ||
-      "Registration failed: " + error.message,
-      "error"
-    );
+    firebase.initializeApp(firebaseConfig);
 
-  } finally {
-    button.disabled = false;
-    button.textContent = "Create Account";
-  }
-});
-</script>
+    const auth = firebase.auth();
+    const db = firebase.firestore();
 
+    const form = document.getElementById("registerForm");
+    const message = document.getElementById("message");
+    const registerBtn = document.getElementById("registerBtn");
+
+    form.addEventListener("submit", async function(event) {
+      event.preventDefault();
+
+      const name = document.getElementById("name").value.trim();
+      const email = document.getElementById("email").value.trim();
+      const university = document.getElementById("university").value.trim();
+      const course = document.getElementById("course").value.trim();
+      const password = document.getElementById("password").value;
+      const confirmPassword = document.getElementById("confirmPassword").value;
+
+      if (password.length < 6) {
+        message.textContent = "Password must contain at least 6 characters.";
+        return;
+      }
+
+      if (password !== confirmPassword) {
+        message.textContent = "Passwords do not match.";
+        return;
+      }
+
+      registerBtn.disabled = true;
+      message.textContent = "Creating your account...";
+
+      let user = null;
+
+      try {
+        const credential = await auth.createUserWithEmailAndPassword(
+          email, password
+        );
+
+        user = credential.user;
+
+        await user.updateProfile({
+          displayName: name
+        });
+
+        await db.collection("students").doc(user.uid).set({
+          fullName: name,
+          email: email,
+          university: university,
+          course: course,
+          createdAt: firebase.firestore.FieldValue.serverTimestamp()
+        });
+
+        message.textContent =
+          "Account and student profile created successfully! Sending verification email...";
+
+        try {
+          await user.sendEmailVerification();
+          message.textContent =
+            "Success! Your MathConect account and student profile have been saved. Please check your email for verification.";
+        } catch (emailError) {
+          message.textContent =
+            "Your account and profile are saved, but the verification email could not be sent. You can request it again later.";
+        }
+
+        form.reset();
+
+      } catch (error) {
+        if (user) {
+          message.textContent =
+            "Your account may already exist, but the profile could not be saved. Error: " +
+            error.message +
+            ". Do not register again yet; check Firebase Authentication and Firestore.";
+        } else if (error.code === "auth/email-already-in-use") {
+          message.textContent = "This email already has an account. Please login.";
+        } else if (error.code === "auth/invalid-email") {
+          message.textContent = "Please enter a valid email address.";
+        } else if (error.code === "auth/weak-password") {
+          message.textContent = "Please choose a stronger password.";
+        } else {
+          message.textContent = "Registration error: " + error.message;
+        }
+      } finally {
+        registerBtn.disabled = false;
+      }
+    });
+  </script>
 </body>
 </html>
