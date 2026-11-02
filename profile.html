@@ -1,0 +1,138 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>MathConect Student Profile</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f1f6fc;
+      color: #183153;
+      padding: 20px;
+    }
+    .box {
+      max-width: 420px;
+      margin: 30px auto;
+      background: white;
+      padding: 24px;
+      border-radius: 12px;
+    }
+    input, button {
+      box-sizing: border-box;
+      width: 100%;
+      padding: 13px;
+      margin: 9px 0;
+      border-radius: 7px;
+    }
+    input { border: 1px solid #bbb; }
+    button {
+      border: 0;
+      background: #0756a5;
+      color: white;
+    }
+    #message { overflow-wrap: anywhere; }
+  </style>
+</head>
+<body>
+<div class="box">
+  <h1>MathConect</h1>
+  <h2>Complete Your Student Profile</h2>
+
+  <p id="email"></p>
+
+  <form id="profileForm">
+    <input id="name" placeholder="Full name" required>
+    <input id="university" placeholder="University" required>
+    <input id="course" placeholder="Course of study" required>
+    <button type="submit">Save Profile</button>
+  </form>
+
+  <p id="message"></p>
+  <a href="dashboard.html">Back to Dashboard</a>
+</div>
+
+<script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-auth-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-firestore-compat.js"></script>
+
+<script>
+const firebaseConfig = {
+  apiKey: "AIzaSyD-Rq8jeNeGHNApk1fbbTKiSgDxHWKM5tI",
+  authDomain: "mathconnect-b54be.firebaseapp.com",
+  projectId: "mathconnect-b54be",
+  storageBucket: "mathconnect-b54be.firebasestorage.app",
+  messagingSenderId: "991575705508",
+  appId: "1:991575705508:web:fb9c5d9790eb732389a331"
+};
+
+firebase.initializeApp(firebaseConfig);
+
+const auth = firebase.auth();
+const db = firebase.firestore();
+
+let currentUser = null;
+
+auth.onAuthStateChanged(async user => {
+  if (!user) {
+    window.location.href = "login.html";
+    return;
+  }
+
+  currentUser = user;
+  document.getElementById("email").textContent = user.email;
+
+  try {
+    const doc = await db.collection("students").doc(user.uid).get();
+
+    if (doc.exists) {
+      const data = doc.data();
+      document.getElementById("name").value = data.fullName || user.displayName || "";
+      document.getElementById("university").value = data.university || "";
+      document.getElementById("course").value = data.course || "";
+    } else {
+      document.getElementById("name").value = user.displayName || "";
+    }
+  } catch (error) {
+    document.getElementById("message").textContent =
+      "Could not load profile: " + error.message;
+  }
+});
+
+document.getElementById("profileForm").addEventListener("submit", async event => {
+  event.preventDefault();
+
+  if (!currentUser) return;
+
+  const name = document.getElementById("name").value.trim();
+  const university = document.getElementById("university").value.trim();
+  const course = document.getElementById("course").value.trim();
+  const message = document.getElementById("message");
+
+  if (!name || !university || !course) {
+    message.textContent = "Please complete all fields.";
+    return;
+  }
+
+  message.textContent = "Saving profile...";
+
+  try {
+    await currentUser.updateProfile({ displayName: name });
+
+    await db.collection("students").doc(currentUser.uid).set({
+      fullName: name,
+      email: currentUser.email,
+      university: university,
+      course: course,
+      updatedAt: firebase.firestore.FieldValue.serverTimestamp()
+    }, { merge: true });
+
+    message.textContent = "Your student profile has been saved successfully!";
+  } catch (error) {
+    message.textContent = "Could not save profile: " + error.message;
+  }
+});
+</script>
+</body>
+</html>
