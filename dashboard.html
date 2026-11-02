@@ -5,23 +5,35 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>MathConect | Student Dashboard</title>
+
   <style>
+    * {
+      box-sizing: border-box;
+    }
+
     body {
       margin: 0;
       font-family: Arial, sans-serif;
       background: #f1f6fc;
       color: #183153;
     }
+
     header {
       background: #0756a5;
       color: white;
       padding: 22px;
     }
+
+    header h1 {
+      margin: 0 0 8px;
+    }
+
     main {
       max-width: 850px;
       margin: 25px auto;
       padding: 15px;
     }
+
     .card {
       background: white;
       padding: 22px;
@@ -29,81 +41,170 @@
       border-radius: 12px;
       box-shadow: 0 2px 8px #0001;
     }
+
+    .card h2 {
+      color: #0756a5;
+    }
+
+    .details {
+      line-height: 1.9;
+      overflow-wrap: anywhere;
+    }
+
     a, button {
       display: inline-block;
       background: #0756a5;
       color: white;
       padding: 12px 18px;
+      margin-top: 8px;
       border: 0;
       border-radius: 7px;
       text-decoration: none;
       cursor: pointer;
+      font-size: 15px;
     }
-    button.logout { background: #b42318; }
+
+    button.logout {
+      background: #b42318;
+    }
+
+    #message {
+      overflow-wrap: anywhere;
+    }
+
+    footer {
+      text-align: center;
+      padding: 20px;
+      color: #64748b;
+    }
   </style>
 </head>
+
 <body>
-  <header>
-    <h1>MathConect</h1>
-    <p>Student Dashboard</p>
-  </header>
 
-  <main>
-    <div class="card">
-      <h2>Welcome!</h2>
-      <p id="studentName">Checking your account...</p>
-      <p id="studentEmail"></p>
+<header>
+  <h1>MathConect.</h1>
+  <p>Student Dashboard</p>
+</header>
+
+<main>
+
+  <div class="card">
+    <h2 id="welcome">Welcome!</h2>
+    <p id="message">Loading your student profile...</p>
+
+    <div class="details">
+      <p><strong>Email:</strong> <span id="studentEmail">Loading...</span></p>
+      <p><strong>University:</strong> <span id="university">Loading...</span></p>
+      <p><strong>Course:</strong> <span id="course">Loading...</span></p>
     </div>
 
-    <div class="card">
-      <h2>My Learning</h2>
-      <p>Explore mathematics learning resources.</p>
-      <a href="courses.html">View Courses</a>
-    </div>
+    <a href="profile.html">Edit My Profile</a>
+  </div>
 
-    <div class="card">
-      <h2>Practice</h2>
-      <p>Prepare with computer-based practice.</p>
-      <a href="index.html#contact">Explore MathConect</a>
-    </div>
+  <div class="card">
+    <h2>My Learning</h2>
+    <p>Explore mathematics learning resources and courses.</p>
+    <a href="courses.html">View Courses</a>
+  </div>
 
-    <div class="card">
-      <button class="logout" id="logoutBtn">Log Out</button>
-    </div>
-  </main>
+  <div class="card">
+    <h2>CBT Practice</h2>
+    <p>Prepare for your examinations with mathematics practice.</p>
+    <a href="index.html#contact">Explore MathConect</a>
+  </div>
 
-  <script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-app-compat.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-auth-compat.js"></script>
+  <div class="card">
+    <h2>Account</h2>
+    <button class="logout" id="logoutBtn">Log Out</button>
+  </div>
 
-  <script>
-    const firebaseConfig = {
-      apiKey: "AIzaSyD-Rq8jeNeGHNApk1fbbTKiSgDxHWKM5tI",
-      authDomain: "mathconnect-b54be.firebaseapp.com",
-      projectId: "mathconnect-b54be",
-      storageBucket: "mathconnect-b54be.firebasestorage.app",
-      messagingSenderId: "991575705508",
-      appId: "1:991575705508:web:fb9c5d9790eb732389a331"
-    };
+</main>
 
-    firebase.initializeApp(firebaseConfig);
-    const auth = firebase.auth();
+<footer>
+  <p>MathConect © 2026. Learn Mathematics. Connect Knowledge.</p>
+</footer>
 
-    auth.onAuthStateChanged(user => {
-      if (user) {
-        document.getElementById("studentName").textContent =
-          "Hello, " + (user.displayName || "Student");
-        document.getElementById("studentEmail").textContent =
-          user.email || "";
+<script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-auth-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-firestore-compat.js"></script>
+
+<script>
+  const firebaseConfig = {
+    apiKey: "AIzaSyD-Rq8jeNeGHNApk1fbbTKiSgDxHWKM5tI",
+    authDomain: "mathconnect-b54be.firebaseapp.com",
+    projectId: "mathconnect-b54be",
+    storageBucket: "mathconnect-b54be.firebasestorage.app",
+    messagingSenderId: "991575705508",
+    appId: "1:991575705508:web:fb9c5d9790eb732389a331"
+  };
+
+  firebase.initializeApp(firebaseConfig);
+
+  const auth = firebase.auth();
+  const db = firebase.firestore();
+
+  auth.onAuthStateChanged(async user => {
+
+    if (!user) {
+      window.location.href = "login.html";
+      return;
+    }
+
+    document.getElementById("studentEmail").textContent =
+      user.email || "Not available";
+
+    try {
+      const doc = await db.collection("students")
+        .doc(user.uid)
+        .get();
+
+      if (doc.exists) {
+        const data = doc.data();
+
+        const name = data.fullName || user.displayName || "Student";
+
+        document.getElementById("welcome").textContent =
+          "Welcome, " + name + "!";
+
+        document.getElementById("university").textContent =
+          data.university || "Not provided";
+
+        document.getElementById("course").textContent =
+          data.course || "Not provided";
+
+        document.getElementById("message").textContent =
+          "Your student profile is ready.";
       } else {
-        window.location.href = "register.html";
-      }
-    });
+        document.getElementById("welcome").textContent =
+          "Welcome, " + (user.displayName || "Student") + "!";
 
-    document.getElementById("logoutBtn").addEventListener("click", () => {
-      auth.signOut().then(() => {
-        window.location.href = "register.html";
-      });
-    });
-  </script>
+        document.getElementById("message").textContent =
+          "Please complete your student profile.";
+
+        document.getElementById("university").textContent =
+          "Not provided";
+
+        document.getElementById("course").textContent =
+          "Not provided";
+      }
+
+    } catch (error) {
+      document.getElementById("message").textContent =
+        "Unable to load profile. " + error.message;
+    }
+  });
+
+  document.getElementById("logoutBtn").addEventListener("click", async () => {
+    try {
+      await auth.signOut();
+      window.location.href = "login.html";
+    } catch (error) {
+      document.getElementById("message").textContent =
+        "Logout failed: " + error.message;
+    }
+  });
+</script>
+
 </body>
 </html>
