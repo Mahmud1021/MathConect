@@ -1,0 +1,220 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MathConect | Mathematics Courses</title>
+
+<style>
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background: #f1f6fc;
+  color: #183153;
+}
+
+header {
+  background: #0756a5;
+  color: white;
+  padding: 22px;
+}
+
+header h1 { margin: 0; }
+
+nav a {
+  color: white;
+  text-decoration: none;
+  margin-right: 15px;
+}
+
+main {
+  max-width: 950px;
+  margin: auto;
+  padding: 20px;
+}
+
+.intro {
+  background: white;
+  padding: 25px;
+  border-radius: 12px;
+  margin-bottom: 22px;
+  text-align: center;
+}
+
+.courses {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 18px;
+}
+
+.card {
+  background: white;
+  padding: 22px;
+  border-radius: 12px;
+  box-shadow: 0 2px 8px #0001;
+}
+
+.card h2 { color: #0756a5; }
+
+button {
+  background: #0756a5;
+  color: white;
+  border: none;
+  padding: 12px 18px;
+  border-radius: 7px;
+  cursor: pointer;
+}
+
+.topics {
+  background: white;
+  padding: 22px;
+  border-radius: 12px;
+  margin-top: 25px;
+}
+
+footer {
+  text-align: center;
+  padding: 25px;
+  color: #64748b;
+}
+</style>
+</head>
+
+<body>
+
+<header>
+  <h1>MathConect.</h1>
+  <p>Mathematics Learning Centre</p>
+  <nav>
+    <a href="index.html">Home</a>
+    <a href="dashboard.html">Dashboard</a>
+    <a href="profile.html">My Profile</a>
+  </nav>
+</header>
+
+<main>
+
+<section class="intro">
+  <h2>Explore Mathematics Courses</h2>
+  <p>Learn mathematics, understand concepts and improve your problem-solving skills.</p>
+</section>
+
+<section class="courses">
+
+  <div class="card">
+    <h2>Algebra</h2>
+    <p>Learn equations, inequalities, functions and algebraic expressions.</p>
+    <button onclick="showTopics('algebra')">View Topics</button>
+  </div>
+
+  <div class="card">
+    <h2>Calculus</h2>
+    <p>Explore limits, differentiation and integration.</p>
+    <button onclick="showTopics('calculus')">View Topics</button>
+  </div>
+
+  <div class="card">
+    <h2>Coordinate Geometry</h2>
+    <p>Study straight lines, circles, conics and coordinate systems.</p>
+    <button onclick="showTopics('geometry')">View Topics</button>
+  </div>
+
+  <div class="card">
+    <h2>Trigonometry</h2>
+    <p>Understand trigonometric ratios, identities and equations.</p>
+    <button onclick="showTopics('trigonometry')">View Topics</button>
+  </div>
+
+  <div class="card">
+    <h2>Statistics</h2>
+    <p>Learn data collection, averages, probability and distributions.</p>
+    <button onclick="showTopics('statistics')">View Topics</button>
+  </div>
+
+  <div class="card">
+    <h2>Linear Algebra</h2>
+    <p>Explore matrices, determinants and systems of linear equations.</p>
+    <button onclick="showTopics('linear')">View Topics</button>
+  </div>
+
+</section>
+
+<section class="topics" id="topics">
+  <h2>Course Topics</h2>
+  <p id="topicDescription">Choose a course above to explore its topics.</p>
+  <ul id="topicList"></ul>
+</section>
+
+</main>
+
+<footer>
+  <p>MathConect © 2026</p>
+  <p>Learn Mathematics. Connect Knowledge.</p>
+</footer>
+
+<script>
+const courseTopics = {
+  algebra: [
+    "Algebraic expressions",
+    "Linear equations",
+    "Quadratic equations",
+    "Functions and graphs"
+  ],
+  calculus: [
+    "Limits and continuity",
+    "Differentiation",
+    "Applications of derivatives",
+    "Integration"
+  ],
+  geometry: [
+    "Straight lines",
+    "Circles",
+    "Parabola",
+    "Ellipse and hyperbola"
+  ],
+  trigonometry: [
+    "Trigonometric ratios",
+    "Trigonometric identities",
+    "Trigonometric equations",
+    "Graphs of trigonometric functions"
+  ],
+  statistics: [
+    "Mean, median and mode",
+    "Variance and standard deviation",
+    "Probability",
+    "Statistical distributions"
+  ],
+  linear: [
+    "Matrices",
+    "Determinants",
+    "Matrix operations",
+    "Systems of linear equations"
+  ]
+};
+
+function showTopics(course) {
+  const list = document.getElementById("topicList");
+  const description = document.getElementById("topicDescription");
+
+  list.innerHTML = "";
+
+  courseTopics[course].forEach(topic => {
+    const item = document.createElement("li");
+    item.textContent = topic;
+    list.appendChild(item);
+  });
+
+  description.textContent =
+    "Explore these topics in " + course + ".";
+
+  document.getElementById("topics").scrollIntoView({
+    behavior: "smooth"
+  });
+}
+</script>
+
+</body>
+</html>
