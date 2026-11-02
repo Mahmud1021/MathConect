@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MathConect | Coordinate Geometry</title>
+<style>
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background: #f3f7fc;
+  color: #183153;
+  line-height: 1.6;
+}
+header {
+  background: #0756b5;
+  color: white;
+  text-align: center;
+  padding: 25px 15px;
+}
+main {
+  max-width: 850px;
+  margin: auto;
+  padding: 18px;
+}
+.lesson {
+  background: white;
+  padding: 20px;
+  margin: 18px 0;
+  border-radius: 12px;
+  box-shadow: 0 2px 8px #00000012;
+}
+h2 { color: #0756b5; }
+.example {
+  background: #eaf3ff;
+  padding: 12px;
+  border-left: 4px solid #0756b5;
+  border-radius: 5px;
+}
+input {
+  padding: 12px;
+  width: 80%;
+  max-width: 250px;
+  border: 1px solid #aaa;
+  border-radius: 6px;
+}
+button, .link {
+  display: inline-block;
+  background: #0756b5;
+  color: white;
+  padding: 11px 18px;
+  border: none;
+  border-radius: 6px;
+  text-decoration: none;
+  cursor: pointer;
+  margin: 5px 3px;
+}
+footer {
+  text-align: center;
+  padding: 20px;
+  color: #555;
+}
+</style>
+</head>
+<body>
+
+<header>
+  <h1>MathConect Coordinate Geometry</h1>
+  <p>Understand geometry using coordinates</p>
+</header>
+
+<main>
+
+<section class="lesson">
+<h2>Lesson 1: Distance Between Two Points</h2>
+<p>The distance formula helps us find the length between two points.</p>
+<div class="example">
+<strong>Formula:</strong><br>
+d = √[(x₂ - x₁)² + (y₂ - y₁)²]<br><br>
+<strong>Example:</strong><br>
+Find the distance between A(1, 2) and B(4, 6).<br>
+d = √[(4 - 1)² + (6 - 2)²]<br>
+d = √(9 + 16)<br>
+d = √25 = <strong>5 units</strong>.
+</div>
+</section>
+
+<section class="lesson">
+<h2>Lesson 2: Midpoint Formula</h2>
+<p>The midpoint is the point exactly halfway between two points.</p>
+<div class="example">
+<strong>Formula:</strong><br>
+M = ((x₁ + x₂)/2, (y₁ + y₂)/2)<br><br>
+<strong>Example:</strong><br>
+Find the midpoint of A(2, 4) and B(6, 8).<br>
+M = ((2 + 6)/2, (4 + 8)/2)<br>
+M = <strong>(4, 6)</strong>.
+</div>
+</section>
+
+<section class="lesson">
+<h2>Lesson 3: Gradient of a Straight Line</h2>
+<p>Gradient measures the steepness of a straight line.</p>
+<div class="example">
+<strong>Formula:</strong><br>
+m = (y₂ - y₁)/(x₂ - x₁)<br><br>
+<strong>Example:</strong><br>
+For A(1, 2) and B(3, 6):<br>
+m = (6 - 2)/(3 - 1)<br>
+m = 4/2 = <strong>2</strong>.
+</div>
+</section>
+
+<section class="lesson">
+<h2>Lesson 4: Equation of a Straight Line</h2>
+<p>A common form of a straight-line equation is:</p>
+<div class="example">
+<strong>y = mx + c</strong><br>
+m = gradient<br>
+c = y-intercept<br><br>
+Example: If m = 2 and c = 3, then:<br>
+<strong>y = 2x + 3</strong>.
+</div>
+</section>
+
+<section class="lesson">
+<h2>Important Formulas</h2>
+<ul>
+<li>Distance: d = √[(x₂ - x₁)² + (y₂ - y₁)²]</li>
+<li>Midpoint: M = ((x₁+x₂)/2, (y₁+y₂)/2)</li>
+<li>Gradient: m = (y₂-y₁)/(x₂-x₁)</li>
+<li>Straight line: y = mx + c</li>
+</ul>
+</section>
+
+<section class="lesson">
+<h2>Practice Question</h2>
+<p>Find the gradient of the line joining A(2, 3) and B(4, 7).</p>
+<p>Enter your answer:</p>
+<input type="text" id="answer" placeholder="Enter gradient">
+<br><br>
+<button onclick="checkAnswer()">Check Answer</button>
+<p id="result"></p>
+</section>
+
+<a class="link" href="courses.html">Back to Courses</a>
+<a class="link" href="dashboard.html">Dashboard</a>
+
+</main>
+
+<footer>
+<p>© 2026 MathConect | Learn Mathematics Together</p>
+</footer>
+
+<script>
+function checkAnswer() {
+  const answer = document.getElementById("answer")
+    .value.trim();
+
+  const result = document.getElementById("result");
+
+  if (answer === "2" || answer === "2.0") {
+    result.textContent = "Correct! Well done.";
+    result.style.color = "green";
+  } else {
+    result.textContent = "Try again. Use m = (y₂-y₁)/(x₂-x₁).";
+    result.style.color = "red";
+  }
+}
+</script>
+
+</body>
+</html>
+
