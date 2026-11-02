@@ -7,9 +7,7 @@
   <title>MathConect | Student Dashboard</title>
 
   <style>
-    * {
-      box-sizing: border-box;
-    }
+    * { box-sizing: border-box; }
 
     body {
       margin: 0;
@@ -24,9 +22,7 @@
       padding: 22px;
     }
 
-    header h1 {
-      margin: 0 0 8px;
-    }
+    header h1 { margin: 0 0 8px; }
 
     main {
       max-width: 850px;
@@ -42,9 +38,7 @@
       box-shadow: 0 2px 8px #0001;
     }
 
-    .card h2 {
-      color: #0756a5;
-    }
+    .card h2 { color: #0756a5; }
 
     .details {
       line-height: 1.9;
@@ -64,12 +58,30 @@
       font-size: 15px;
     }
 
-    button.logout {
-      background: #b42318;
+    button.logout { background: #b42318; }
+
+    #message, #resultsMessage {
+      overflow-wrap: anywhere;
     }
 
-    #message {
-      overflow-wrap: anywhere;
+    .result-item {
+      border: 1px solid #dbe7f5;
+      border-left: 4px solid #0756a5;
+      padding: 14px;
+      margin: 12px 0;
+      border-radius: 7px;
+      background: #f8fbff;
+    }
+
+    .result-item p {
+      margin: 7px 0;
+      line-height: 1.5;
+    }
+
+    .score {
+      color: #0756a5;
+      font-weight: bold;
+      font-size: 18px;
     }
 
     footer {
@@ -108,12 +120,19 @@
     <a href="courses.html">View Courses</a>
   </div>
 
-<div class="card">
-  <h2>CBT Practice</h2>
-  <p>Prepare for your examinations with mathematics practice.</p>
-  <a href="cbt.html">Start CBT Practice</a>
-</div>
-  
+  <div class="card">
+    <h2>CBT Practice</h2>
+    <p>Prepare for your examinations with mathematics practice.</p>
+    <a href="cbt.html">Start CBT Practice</a>
+  </div>
+
+  <div class="card">
+    <h2>My CBT Results</h2>
+    <p>View your previous examination scores and progress.</p>
+    <p id="resultsMessage">Loading your examination history...</p>
+    <div id="resultsList"></div>
+  </div>
+
   <div class="card">
     <h2>Account</h2>
     <button class="logout" id="logoutBtn">Log Out</button>
@@ -130,72 +149,148 @@
 <script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-firestore-compat.js"></script>
 
 <script>
-  const firebaseConfig = {
-    apiKey: "AIzaSyD-Rq8jeNeGHNApk1fbbTKiSgDxHWKM5tI",
-    authDomain: "mathconnect-b54be.firebaseapp.com",
-    projectId: "mathconnect-b54be",
-    storageBucket: "mathconnect-b54be.firebasestorage.app",
-    messagingSenderId: "991575705508",
-    appId: "1:991575705508:web:fb9c5d9790eb732389a331"
-  };
+const firebaseConfig = {
+  apiKey: "AIzaSyD-Rq8jeNeGHNApk1fbbTKiSgDxHWKM5tI",
+  authDomain: "mathconnect-b54be.firebaseapp.com",
+  projectId: "mathconnect-b54be",
+  storageBucket: "mathconnect-b54be.firebasestorage.app",
+  messagingSenderId: "991575705508",
+  appId: "1:991575705508:web:fb9c5d9790eb732389a331"
+};
 
-  firebase.initializeApp(firebaseConfig);
+firebase.initializeApp(firebaseConfig);
 
-  const auth = firebase.auth();
-  const db = firebase.firestore();
+const auth = firebase.auth();
+const db = firebase.firestore();
 
-  auth.onAuthStateChanged(async user => {
+auth.onAuthStateChanged(async user => {
 
-    if (!user) {
-      window.location.href = "login.html";
+  if (!user) {
+    window.location.href = "login.html";
+    return;
+  }
+
+  document.getElementById("studentEmail").textContent =
+    user.email || "Not available";
+
+  try {
+    const doc = await db.collection("students")
+      .doc(user.uid)
+      .get();
+
+    if (doc.exists) {
+      const data = doc.data();
+
+      const name = data.fullName || user.displayName || "Student";
+
+      document.getElementById("welcome").textContent =
+        "Welcome, " + name + "!";
+
+      document.getElementById("university").textContent =
+        data.university || "Not provided";
+
+      document.getElementById("course").textContent =
+        data.course || "Not provided";
+
+      document.getElementById("message").textContent =
+        "Your student profile is ready.";
+
+    } else {
+      document.getElementById("welcome").textContent =
+        "Welcome, " + (user.displayName || "Student") + "!";
+
+      document.getElementById("message").textContent =
+        "Please complete your student profile.";
+
+      document.getElementById("university").textContent =
+        "Not provided";
+
+      document.getElementById("course").textContent =
+        "Not provided";
+    }
+
+    await loadCBTResults(user.uid);
+
+  } catch (error) {
+    document.getElementById("message").textContent =
+      "Unable to load profile: " + error.message;
+
+    document.getElementById("resultsMessage").textContent =
+      "Unable to load examination history.";
+  }
+});
+
+async function loadCBTResults(userId) {
+
+  const message = document.getElementById("resultsMessage");
+  const list = document.getElementById("resultsList");
+
+  try {
+    const snapshot = await db.collection("students")
+      .doc(userId)
+      .collection("examResults")
+      .orderBy("completedAt", "desc")
+      .get();
+
+    list.innerHTML = "";
+
+    if (snapshot.empty) {
+      message.textContent =
+        "No examination results yet. Start your first CBT!";
       return;
     }
 
-    document.getElementById("studentEmail").textContent =
-      user.email || "Not available";
+    message.textContent =
+      "You have completed " + snapshot.size + " examination(s).";
 
-    try {
-      const doc = await db.collection("students")
-        .doc(user.uid)
-        .get();
+    snapshot.forEach(doc => {
 
-      if (doc.exists) {
-        const data = doc.data();
+      const data = doc.data();
 
-        const name = data.fullName || user.displayName || "Student";
+      const item = document.createElement("div");
+      item.className = "result-item";
 
-        document.getElementById("welcome").textContent =
-          "Welcome, " + name + "!";
+      const title = document.createElement("h3");
+      title.textContent = data.examTitle || "Mathematics CBT";
 
-        document.getElementById("university").textContent =
-          data.university || "Not provided";
+      const score = document.createElement("p");
+      score.className = "score";
+      score.textContent =
+        "Score: " + data.score + " / " + data.total;
 
-        document.getElementById("course").textContent =
-          data.course || "Not provided";
+      const percentage = document.createElement("p");
+      percentage.textContent =
+        "Percentage: " + data.percentage + "%";
 
-        document.getElementById("message").textContent =
-          "Your student profile is ready.";
-      } else {
-        document.getElementById("welcome").textContent =
-          "Welcome, " + (user.displayName || "Student") + "!";
+      const date = document.createElement("p");
 
-        document.getElementById("message").textContent =
-          "Please complete your student profile.";
+      let dateText = "Date: Not available";
 
-        document.getElementById("university").textContent =
-          "Not provided";
-
-        document.getElementById("course").textContent =
-          "Not provided";
+      if (data.completedAt &&
+          typeof data.completedAt.toDate === "function") {
+        dateText = "Date: " +
+          data.completedAt.toDate().toLocaleString();
       }
 
-    } catch (error) {
-      document.getElementById("message").textContent =
-        "Unable to load profile. " + error.message;
-    }
-  });
+      date.textContent = dateText;
 
-  document.getElementById("logoutBtn").addEventListener("click", async () => {
+      item.appendChild(title);
+      item.appendChild(score);
+      item.appendChild(percentage);
+      item.appendChild(date);
+
+      list.appendChild(item);
+    });
+
+  } catch (error) {
+    message.textContent =
+      "Unable to load results: " + error.message;
+  }
+}
+
+document.getElementById("logoutBtn").addEventListener(
+  "click",
+  async () => {
     try {
       await auth.signOut();
       window.location.href = "login.html";
@@ -203,7 +298,8 @@
       document.getElementById("message").textContent =
         "Logout failed: " + error.message;
     }
-  });
+  }
+);
 </script>
 
 </body>
