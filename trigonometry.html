@@ -1,0 +1,188 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MathConect | Trigonometry</title>
+<style>
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background: #f3f7fc;
+  color: #183153;
+  line-height: 1.7;
+}
+header {
+  background: #0756b5;
+  color: white;
+  text-align: center;
+  padding: 25px 15px;
+}
+main {
+  max-width: 850px;
+  margin: auto;
+  padding: 18px;
+}
+.lesson {
+  background: white;
+  padding: 20px;
+  margin: 18px 0;
+  border-radius: 12px;
+  box-shadow: 0 2px 8px #00000012;
+}
+h2 { color: #0756b5; }
+.example {
+  background: #eaf3ff;
+  padding: 12px;
+  border-left: 4px solid #0756b5;
+  border-radius: 5px;
+}
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 12px;
+}
+th, td {
+  border: 1px solid #ccd8e6;
+  padding: 9px;
+  text-align: center;
+}
+th { background: #eaf3ff; }
+input {
+  padding: 12px;
+  width: 80%;
+  max-width: 250px;
+  border: 1px solid #aaa;
+  border-radius: 6px;
+}
+button, .link {
+  display: inline-block;
+  background: #0756b5;
+  color: white;
+  padding: 11px 18px;
+  border: none;
+  border-radius: 6px;
+  text-decoration: none;
+  cursor: pointer;
+  margin: 5px 3px;
+}
+footer {
+  text-align: center;
+  padding: 20px;
+  color: #555;
+}
+</style>
+</head>
+<body>
+
+<header>
+  <h1>MathConect Trigonometry</h1>
+  <p>Understand angles, triangles and trigonometric functions</p>
+</header>
+
+<main>
+
+<section class="lesson">
+<h2>Lesson 1: Introduction to Trigonometry</h2>
+<p>Trigonometry is the branch of mathematics that studies relationships between angles and sides of triangles.</p>
+<p>In a right-angled triangle, the three basic ratios are:</p>
+<div class="example">
+<strong>SOH CAH TOA</strong><br><br>
+sin θ = Opposite / Hypotenuse<br>
+cos θ = Adjacent / Hypotenuse<br>
+tan θ = Opposite / Adjacent
+</div>
+</section>
+
+<section class="lesson">
+<h2>Lesson 2: Trigonometric Ratios</h2>
+<p>Consider a right-angled triangle with an angle θ.</p>
+<ul>
+<li><strong>Opposite:</strong> Side opposite the angle.</li>
+<li><strong>Adjacent:</strong> Side next to the angle, excluding the hypotenuse.</li>
+<li><strong>Hypotenuse:</strong> Longest side, opposite the right angle.</li>
+</ul>
+<div class="example">
+<strong>Example:</strong><br>
+If the opposite side is 3 and the hypotenuse is 5:<br>
+sin θ = 3/5 = <strong>0.6</strong>.
+</div>
+</section>
+
+<section class="lesson">
+<h2>Lesson 3: Important Trigonometric Identities</h2>
+<div class="example">
+sin² θ + cos² θ = 1<br><br>
+1 + tan² θ = sec² θ<br><br>
+1 + cot² θ = cosec² θ<br><br>
+tan θ = sin θ / cos θ
+</div>
+</section>
+
+<section class="lesson">
+<h2>Lesson 4: Special Angles</h2>
+<table>
+<tr>
+<th>Angle</th>
+<th>sin θ</th>
+<th>cos θ</th>
+<th>tan θ</th>
+</tr>
+<tr><td>0°</td><td>0</td><td>1</td><td>0</td></tr>
+<tr><td>30°</td><td>1/2</td><td>√3/2</td><td>1/√3</td></tr>
+<tr><td>45°</td><td>1/√2</td><td>1/√2</td><td>1</td></tr>
+<tr><td>60°</td><td>√3/2</td><td>1/2</td><td>√3</td></tr>
+<tr><td>90°</td><td>1</td><td>0</td><td>Undefined</td></tr>
+</table>
+</section>
+
+<section class="lesson">
+<h2>Lesson 5: Worked Example</h2>
+<p>A right-angled triangle has an opposite side of 6 cm and an adjacent side of 8 cm. Find tan θ.</p>
+<div class="example">
+tan θ = Opposite / Adjacent<br>
+tan θ = 6/8<br>
+<strong>tan θ = 3/4 = 0.75</strong>
+</div>
+</section>
+
+<section class="lesson">
+<h2>Practice Question</h2>
+<p>If the opposite side is 5 and the adjacent side is 12, find tan θ.</p>
+<p>Enter your answer as a fraction or decimal.</p>
+<input type="text" id="answer" placeholder="Enter your answer">
+<br><br>
+<button onclick="checkAnswer()">Check Answer</button>
+<p id="result"></p>
+</section>
+
+<a class="link" href="courses.html">Back to Courses</a>
+<a class="link" href="dashboard.html">Dashboard</a>
+
+</main>
+
+<footer>
+<p>© 2026 MathConect | Learn Mathematics Together</p>
+</footer>
+
+<script>
+function checkAnswer() {
+  const answer = document.getElementById("answer")
+    .value.trim().replace(/\s/g, "");
+
+  const result = document.getElementById("result");
+
+  if (answer === "5/12" || answer === "0.4167" ||
+      answer === "0.4166667") {
+    result.textContent = "Correct! Well done.";
+    result.style.color = "green";
+  } else {
+    result.textContent = "Try again. tan θ = opposite / adjacent.";
+    result.style.color = "red";
+  }
+}
+</script>
+
+</body>
+</html>
