@@ -5,6 +5,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>MathConect | CBT Examination</title>
+
 <style>
 * { box-sizing: border-box; }
 
@@ -76,8 +77,13 @@ footer {
   text-align: center;
   padding: 20px;
 }
+#saveStatus {
+  font-weight: bold;
+  overflow-wrap: anywhere;
+}
 </style>
 </head>
+
 <body>
 
 <header>
@@ -86,7 +92,12 @@ footer {
 </header>
 
 <main>
-<section class="card" id="exam">
+
+<section class="card" id="loading">
+  Checking your student account...
+</section>
+
+<section class="card" id="exam" hidden>
   <div class="info">
     <span id="progress">Question 1 of 10</span>
     <span id="timer">Time: 10:00</span>
@@ -107,18 +118,38 @@ footer {
 <section class="card" id="results" hidden>
   <h2>Examination Results</h2>
   <div id="result"></div>
+  <p id="saveStatus">Saving your result...</p>
   <button onclick="location.reload()">Try Again</button>
 </section>
 
 <a class="link" href="dashboard.html">Back to Dashboard</a>
 <a class="link" href="courses.html">Courses</a>
+
 </main>
 
 <footer>
   © 2026 MathConect | Learn Mathematics Together
 </footer>
 
+<script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-auth-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-firestore-compat.js"></script>
+
 <script>
+const firebaseConfig = {
+  apiKey: "AIzaSyD-Rq8jeNeGHNApk1fbbTKiSgDxHWKM5tI",
+  authDomain: "mathconnect-b54be.firebaseapp.com",
+  projectId: "mathconnect-b54be",
+  storageBucket: "mathconnect-b54be.firebasestorage.app",
+  messagingSenderId: "991575705508",
+  appId: "1:991575705508:web:fb9c5d9790eb732389a331"
+};
+
+firebase.initializeApp(firebaseConfig);
+
+const auth = firebase.auth();
+const db = firebase.firestore();
+
 const questions = [
   {
     q: "What is 5 + 7?",
@@ -175,8 +206,10 @@ const questions = [
 let current = 0;
 let answers = Array(questions.length).fill(null);
 let finished = false;
+let resultSaved = false;
 let remaining = 600;
 let timerId = null;
+let currentUser = null;
 
 function showQuestion() {
   const q = questions[current];
@@ -215,6 +248,7 @@ function showQuestion() {
 
 function move(direction) {
   if (finished) return;
+
   current += direction;
   showQuestion();
 }
@@ -235,8 +269,8 @@ function updateTimer() {
   remaining--;
 }
 
-function submitExam() {
-  if (finished) return;
+async function submitExam() {
+  if (finished || !currentUser) return;
 
   const unanswered = answers.filter(a => a === null).length;
 
@@ -244,6 +278,7 @@ function submitExam() {
     const confirmSubmit = confirm(
       `You have ${unanswered} unanswered questions. Submit anyway?`
     );
+
     if (!confirmSubmit) return;
   }
 
@@ -284,11 +319,57 @@ function submitExam() {
     <h3>Percentage: ${percentage}%</h3>
     ${review}
   `;
+
+  await saveResult(score, percentage);
 }
 
-showQuestion();
-updateTimer();
-timerId = setInterval(updateTimer, 1000);
+async function saveResult(score, percentage) {
+  if (resultSaved || !currentUser) return;
+
+  resultSaved = true;
+
+  const status = document.getElementById("saveStatus");
+  status.textContent = "Saving your result to Firebase...";
+
+  try {
+    await db.collection("students")
+      .doc(currentUser.uid)
+      .collection("examResults")
+      .add({
+        examTitle: "Mathematics CBT Practice",
+        score: score,
+        total: questions.length,
+        percentage: percentage,
+        completedAt: firebase.firestore.FieldValue.serverTimestamp()
+      });
+
+    status.textContent =
+      "Success! Your examination result has been saved to your account.";
+
+  } catch (error) {
+    resultSaved = false;
+
+    status.textContent =
+      "Your score was calculated, but saving failed: " + error.message;
+  }
+}
+
+auth.onAuthStateChanged(user => {
+  if (!user) {
+    window.location.href = "login.html";
+    return;
+  }
+
+  currentUser = user;
+
+  document.getElementById("loading").hidden = true;
+  document.getElementById("exam").hidden = false;
+
+  showQuestion();
+  updateTimer();
+
+  timerId = setInterval(updateTimer, 1000);
+});
 </script>
 
 </body>
