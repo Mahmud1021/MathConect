@@ -1,0 +1,163 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>MathConect | Calculus</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: #f3f7fc;
+      color: #183153;
+      line-height: 1.6;
+    }
+    header {
+      background: #0756b5;
+      color: white;
+      padding: 25px 15px;
+      text-align: center;
+    }
+    main {
+      max-width: 850px;
+      margin: auto;
+      padding: 18px;
+    }
+    .lesson {
+      background: white;
+      padding: 20px;
+      margin: 18px 0;
+      border-radius: 12px;
+      box-shadow: 0 2px 8px #00000012;
+    }
+    h2 { color: #0756b5; }
+    .example {
+      background: #eaf3ff;
+      padding: 12px;
+      border-left: 4px solid #0756b5;
+      border-radius: 5px;
+    }
+    input {
+      padding: 12px;
+      width: 80%;
+      max-width: 250px;
+      border: 1px solid #aaa;
+      border-radius: 6px;
+    }
+    button, .link {
+      display: inline-block;
+      background: #0756b5;
+      color: white;
+      padding: 11px 18px;
+      border: none;
+      border-radius: 6px;
+      text-decoration: none;
+      cursor: pointer;
+      margin: 5px 3px;
+    }
+    footer {
+      text-align: center;
+      padding: 20px;
+      color: #555;
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <h1>MathConect Calculus</h1>
+  <p>Learn Calculus step by step</p>
+</header>
+
+<main>
+
+  <section class="lesson">
+    <h2>Lesson 1: Introduction to Limits</h2>
+    <p>A limit describes the value a function approaches as its input gets closer to a particular number.</p>
+    <p>Example:</p>
+    <div class="example">
+      Find lim (x → 2) (x + 3).<br>
+      Substitute x = 2.<br>
+      Answer = 2 + 3 = <strong>5</strong>.
+    </div>
+  </section>
+
+  <section class="lesson">
+    <h2>Lesson 2: Differentiation</h2>
+    <p>Differentiation helps us find the rate of change of a function.</p>
+    <p><strong>Power Rule:</strong></p>
+    <div class="example">
+      If y = xⁿ, then dy/dx = nxⁿ⁻¹.<br><br>
+      Example:<br>
+      y = x³<br>
+      dy/dx = 3x².
+    </div>
+    <p>Another example:</p>
+    <div class="example">
+      If y = 4x² + 3x + 5,<br>
+      dy/dx = 8x + 3.
+    </div>
+  </section>
+
+  <section class="lesson">
+    <h2>Lesson 3: Integration</h2>
+    <p>Integration is used to find antiderivatives and calculate accumulated quantities.</p>
+    <p><strong>Power Rule:</strong></p>
+    <div class="example">
+      ∫xⁿ dx = xⁿ⁺¹/(n+1) + C, where n ≠ -1.<br><br>
+      Example:<br>
+      ∫x² dx = x³/3 + C.
+    </div>
+  </section>
+
+  <section class="lesson">
+    <h2>Important Calculus Rules</h2>
+    <ul>
+      <li>d/dx (constant) = 0</li>
+      <li>d/dx (xⁿ) = nxⁿ⁻¹</li>
+      <li>d/dx (sin x) = cos x</li>
+      <li>d/dx (cos x) = -sin x</li>
+      <li>∫1 dx = x + C</li>
+      <li>∫x dx = x²/2 + C</li>
+    </ul>
+  </section>
+
+  <section class="lesson">
+    <h2>Practice Question</h2>
+    <p>Differentiate y = 5x².</p>
+    <p>Enter the coefficient of x (your answer should be 10x).</p>
+    <input type="text" id="answer" placeholder="Enter your answer">
+    <br><br>
+    <button onclick="checkAnswer()">Check Answer</button>
+    <p id="result"></p>
+  </section>
+
+  <a class="link" href="courses.html">Back to Courses</a>
+  <a class="link" href="dashboard.html">Dashboard</a>
+
+</main>
+
+<footer>
+  <p>© 2026 MathConect | Learn Mathematics Together</p>
+</footer>
+
+<script>
+function checkAnswer() {
+  const answer = document.getElementById("answer")
+    .value.toLowerCase().replace(/\s/g, "");
+
+  const result = document.getElementById("result");
+
+  if (answer === "10x") {
+    result.textContent = "Correct! Well done.";
+    result.style.color = "green";
+  } else {
+    result.textContent = "Not quite. Try again. The derivative of 5x² is 10x.";
+    result.style.color = "red";
+  }
+}
+</script>
+
+</body>
+</html>
