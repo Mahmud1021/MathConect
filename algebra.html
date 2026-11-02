@@ -1,0 +1,171 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>MathConect | Algebra Lessons</title>
+<style>
+* { box-sizing: border-box; }
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background: #f1f6fc;
+  color: #183153;
+}
+header {
+  background: #0756a5;
+  color: white;
+  padding: 22px;
+}
+main {
+  max-width: 850px;
+  margin: auto;
+  padding: 18px;
+}
+.card {
+  background: white;
+  padding: 22px;
+  margin: 16px 0;
+  border-radius: 12px;
+  box-shadow: 0 2px 8px #0001;
+}
+h2 { color: #0756a5; }
+.example {
+  background: #eaf3ff;
+  padding: 15px;
+  border-left: 4px solid #0756a5;
+  border-radius: 6px;
+  line-height: 1.8;
+}
+input {
+  width: 100%;
+  padding: 12px;
+  margin: 10px 0;
+  border: 1px solid #bbb;
+  border-radius: 7px;
+}
+button, .link {
+  display: inline-block;
+  background: #0756a5;
+  color: white;
+  border: 0;
+  padding: 12px 18px;
+  border-radius: 7px;
+  text-decoration: none;
+  cursor: pointer;
+}
+#result { font-weight: bold; }
+footer {
+  text-align: center;
+  padding: 20px;
+}
+</style>
+</head>
+<body>
+
+<header>
+<h1>MathConect.</h1>
+<p>Algebra Learning Centre</p>
+<a class="link" href="courses.html">All Courses</a>
+<a class="link" href="dashboard.html">Dashboard</a>
+</header>
+
+<main>
+
+<div class="card">
+<h2>Welcome to Algebra</h2>
+<p>Learn algebra step by step, from basic expressions to equations.</p>
+</div>
+
+<div class="card">
+<h2>Lesson 1: Introduction to Algebra</h2>
+<p>Algebra is a branch of mathematics that uses letters and symbols to represent unknown numbers.</p>
+<p>For example:</p>
+<div class="example">
+x + 5 = 12<br>
+Here, x represents an unknown number.<br>
+Our aim is to find the value of x.
+</div>
+</div>
+
+<div class="card">
+<h2>Lesson 2: Algebraic Expressions</h2>
+<p>An algebraic expression combines numbers, variables and mathematical operations.</p>
+<p>Examples:</p>
+<ul>
+<li>2x + 3</li>
+<li>5a - 4</li>
+<li>3x + 2y</li>
+</ul>
+</div>
+
+<div class="card">
+<h2>Lesson 3: Linear Equations</h2>
+<p>A linear equation is an equation in which the highest power of the variable is one.</p>
+<div class="example">
+<strong>Worked Example:</strong><br>
+Solve: 2x + 4 = 12<br><br>
+Step 1: Subtract 4 from both sides.<br>
+2x = 12 - 4<br>
+2x = 8<br><br>
+Step 2: Divide both sides by 2.<br>
+x = 8 ÷ 2<br><br>
+<strong>Answer: x = 4</strong>
+</div>
+</div>
+
+<div class="card">
+<h2>Important Formulas</h2>
+<div class="example">
+(a + b)² = a² + 2ab + b²<br>
+(a - b)² = a² - 2ab + b²<br>
+a² - b² = (a - b)(a + b)
+</div>
+</div>
+
+<div class="card">
+<h2>Practice Question 1</h2>
+<p>Solve the equation:</p>
+<h3>3x + 6 = 18</h3>
+
+<input type="number" id="answer"
+placeholder="Enter your answer">
+
+<button onclick="checkAnswer()">Check Answer</button>
+
+<p id="result"></p>
+</div>
+
+<div class="card">
+<h2>Continue Learning</h2>
+<p>More lessons and practice questions will be added as MathConect grows.</p>
+<a class="link" href="courses.html">Back to Courses</a>
+</div>
+
+</main>
+
+<footer>
+<p>MathConect © 2026</p>
+<p>Learn Mathematics. Connect Knowledge.</p>
+</footer>
+
+<script>
+function checkAnswer() {
+  const answer = document.getElementById("answer").value;
+  const result = document.getElementById("result");
+
+  if (answer === "") {
+    result.textContent = "Please enter your answer.";
+  } else if (Number(answer) === 4) {
+    result.textContent = "Correct! Excellent work.";
+    result.style.color = "green";
+  } else {
+    result.textContent = "Not quite. Try again.";
+    result.style.color = "red";
+  }
+}
+</script>
+
+</body>
+</html>
