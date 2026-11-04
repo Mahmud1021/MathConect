@@ -233,9 +233,14 @@ function showQuestion() {
     radio.value = index;
     radio.checked = answers[current] === index;
 
-    radio.addEventListener("change", () => {
-      answers[current] = index;
-    });
+radio.addEventListener("change", () => {
+  answers[current] = index;
+
+  const unanswered = answers.filter(a => a === null).length;
+
+  document.getElementById("unanswered").textContent =
+    `Unanswered: ${unanswered}`;
+});
 
     label.appendChild(radio);
     label.append(" " + option);
