@@ -2,422 +2,543 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="MathConect - Learn mathematics, access courses, practice CBT and connect with tutors.">
-  <title>MathConect | Learn Without Limits</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="MathConect - AI-assisted learning, mathematics courses, CBT practice and online tutorials.">
+<meta name="theme-color" content="#103b75">
+<title>MathConect | Learn Without Limits</title>
 
-  <style>
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
+<style>
+:root {
+  --blue:#1769d2;
+  --dark:#103b75;
+  --navy:#09264b;
+  --light:#f3f7ff;
+  --white:#fff;
+  --text:#263b57;
+  --muted:#66758b;
+  --border:#e2eaf5;
+}
 
-    :root {
-      --blue: #1264d8;
-      --dark: #102b50;
-      --light: #f2f7ff;
-      --white: #ffffff;
-    }
+* {
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+}
 
-    body {
-      font-family: Arial, sans-serif;
-      color: var(--dark);
-      background: var(--white);
-      line-height: 1.6;
-    }
+html { scroll-behavior:smooth; }
 
-    header {
-      background: white;
-      padding: 15px 7%;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      box-shadow: 0 2px 12px #00000010;
-      position: sticky;
-      top: 0;
-      z-index: 10;
-    }
+body {
+  font-family:Arial,sans-serif;
+  background:var(--white);
+  color:var(--text);
+  line-height:1.6;
+}
 
-    .logo {
-      font-size: 25px;
-      font-weight: bold;
-      color: var(--blue);
-    }
+a { text-decoration:none; }
 
-    nav {
-      display: flex;
-      gap: 22px;
-      align-items: center;
-    }
+header {
+  position:sticky;
+  top:0;
+  z-index:100;
+  background:#fff;
+  box-shadow:0 3px 18px #102b5010;
+}
 
-    nav a {
-      text-decoration: none;
-      color: var(--dark);
-      font-weight: bold;
-      font-size: 14px;
-    }
+.navbar {
+  max-width:1150px;
+  margin:auto;
+  padding:16px 22px;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  flex-wrap:wrap;
+}
 
-    nav a:hover {
-      color: var(--blue);
-    }
+.logo {
+  color:var(--blue);
+  font-size:25px;
+  font-weight:800;
+}
 
-    .menu {
-      display: none;
-      background: var(--blue);
-      color: white;
-      border: 0;
-      padding: 9px 13px;
-      border-radius: 6px;
-      font-size: 18px;
-    }
+.logo span { color:var(--dark); }
 
-    .hero {
-      padding: 85px 7%;
-      background: linear-gradient(120deg, #eaf3ff, #ffffff);
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 30px;
-    }
+.menu-btn {
+  display:none;
+  background:var(--blue);
+  color:white;
+  border:0;
+  padding:10px 14px;
+  border-radius:8px;
+  font-size:19px;
+}
 
-    .hero-content {
-      max-width: 600px;
-    }
+nav {
+  display:flex;
+  align-items:center;
+  gap:22px;
+}
 
-    .tag {
-      color: var(--blue);
-      font-weight: bold;
-      margin-bottom: 12px;
-    }
+nav a {
+  color:var(--text);
+  font-weight:600;
+  font-size:14px;
+}
 
-    h1 {
-      font-size: clamp(36px, 6vw, 58px);
-      line-height: 1.15;
-      margin-bottom: 20px;
-    }
+nav a:hover { color:var(--blue); }
 
-    h1 span {
-      color: var(--blue);
-    }
+.btn {
+  display:inline-block;
+  background:var(--blue);
+  color:white;
+  padding:13px 22px;
+  border-radius:9px;
+  font-weight:bold;
+  transition:.2s;
+}
 
-    .hero p {
-      font-size: 17px;
-      color: #53677f;
-      margin-bottom: 25px;
-    }
+.btn:hover {
+  background:var(--dark);
+  transform:translateY(-2px);
+}
 
-    .btn {
-      display: inline-block;
-      background: var(--blue);
-      color: white;
-      text-decoration: none;
-      padding: 13px 23px;
-      border-radius: 8px;
-      font-weight: bold;
-      margin: 5px 5px 5px 0;
-    }
+.btn-light {
+  background:white;
+  color:var(--blue);
+  border:1px solid var(--border);
+}
 
-    .btn:hover {
-      background: #084da9;
-    }
+.hero {
+  background:linear-gradient(125deg,#eaf3ff,#fff 75%);
+  padding:85px 22px;
+}
 
-    .btn-outline {
-      background: white;
-      color: var(--blue);
-      border: 1px solid var(--blue);
-    }
+.hero-inner {
+  max-width:1150px;
+  margin:auto;
+  display:grid;
+  grid-template-columns:1.2fr .8fr;
+  align-items:center;
+  gap:45px;
+}
 
-    .math-art {
-      background: var(--blue);
-      color: white;
-      width: 300px;
-      height: 280px;
-      border-radius: 35px;
-      display: grid;
-      place-items: center;
-      font-size: 65px;
-      font-weight: bold;
-      box-shadow: 0 15px 35px #1264d833;
-      text-align: center;
-    }
+.tag {
+  display:inline-block;
+  background:#dceaff;
+  color:var(--blue);
+  padding:7px 14px;
+  border-radius:30px;
+  font-size:12px;
+  font-weight:bold;
+  margin-bottom:18px;
+}
 
-    section {
-      padding: 65px 7%;
-    }
+.hero h1 {
+  color:var(--navy);
+  font-size:clamp(36px,5vw,58px);
+  line-height:1.12;
+  margin-bottom:20px;
+}
 
-    .section-title {
-      text-align: center;
-      margin-bottom: 35px;
-    }
+.hero h1 span { color:var(--blue); }
 
-    .section-title h2 {
-      font-size: 32px;
-      color: var(--dark);
-    }
+.hero p {
+  color:var(--muted);
+  font-size:17px;
+  max-width:550px;
+  margin-bottom:27px;
+}
 
-    .section-title p {
-      color: #64748b;
-    }
+.hero-art {
+  background:linear-gradient(145deg,#1769d2,#092c60);
+  color:white;
+  min-height:300px;
+  border-radius:28px;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+  box-shadow:0 20px 50px #1769d230;
+  padding:25px;
+  text-align:center;
+}
 
-    .cards {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 20px;
-    }
+.hero-art .formula {
+  font-size:45px;
+  font-weight:bold;
+  margin:15px 0;
+}
 
-    .card {
-      background: white;
-      padding: 27px;
-      border: 1px solid #e1eafa;
-      border-radius: 14px;
-      box-shadow: 0 5px 20px #102b500b;
-    }
+.hero-art p { color:#e0ecff; }
 
-    .card .symbol {
-      font-size: 34px;
-      margin-bottom: 12px;
-    }
+section { padding:75px 22px; }
 
-    .card h3 {
-      margin-bottom: 10px;
-      color: var(--blue);
-    }
+.container {
+  max-width:1150px;
+  margin:auto;
+}
 
-    .card p {
-      color: #64748b;
-      margin-bottom: 15px;
-    }
+.section-heading {
+  text-align:center;
+  margin-bottom:40px;
+}
 
-    .card a {
-      color: var(--blue);
-      font-weight: bold;
-      text-decoration: none;
-    }
+.section-heading h2 {
+  font-size:32px;
+  color:var(--navy);
+  margin-bottom:9px;
+}
 
-    .about {
-      background: var(--light);
-      text-align: center;
-    }
+.section-heading p { color:var(--muted); }
 
-    .about p {
-      max-width: 750px;
-      margin: 15px auto;
-      color: #53677f;
-    }
+.grid {
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:22px;
+}
 
-    .cta {
-      background: var(--dark);
-      color: white;
-      text-align: center;
-    }
+.card {
+  background:white;
+  border:1px solid var(--border);
+  padding:27px;
+  border-radius:17px;
+  box-shadow:0 7px 25px #102b5008;
+  transition:.2s;
+}
 
-    .cta h2 {
-      font-size: 32px;
-      margin-bottom: 12px;
-    }
+.card:hover {
+  transform:translateY(-5px);
+  box-shadow:0 12px 30px #102b5015;
+}
 
-    .cta p {
-      margin-bottom: 20px;
-      color: #d4e2f5;
-    }
+.card .icon {
+  font-size:35px;
+  margin-bottom:15px;
+}
 
-    footer {
-      background: #091d36;
-      color: white;
-      padding: 30px 7%;
-      text-align: center;
-    }
+.card h3 {
+  color:var(--dark);
+  margin-bottom:10px;
+}
 
-    footer p {
-      margin: 5px;
-      color: #c5d4e8;
-    }
+.card p {
+  color:var(--muted);
+  margin-bottom:18px;
+  font-size:14px;
+}
 
-    @media(max-width: 750px) {
-      header {
-        flex-wrap: wrap;
-      }
+.card a {
+  color:var(--blue);
+  font-weight:bold;
+}
 
-      .menu {
-        display: block;
-      }
+.features { background:var(--light); }
 
-      nav {
-        display: none;
-        flex-direction: column;
-        width: 100%;
-        padding: 15px 0;
-      }
+.feature {
+  display:flex;
+  gap:15px;
+  align-items:flex-start;
+}
 
-      nav.open {
-        display: flex;
-      }
+.feature-icon {
+  background:#dfebff;
+  color:var(--blue);
+  padding:12px;
+  border-radius:12px;
+  font-size:22px;
+}
 
-      .hero {
-        flex-direction: column;
-        text-align: center;
-        padding: 55px 7%;
-      }
+.feature h3 { color:var(--dark); }
+.feature p { color:var(--muted); font-size:14px; }
 
-      .math-art {
-        width: 100%;
-        max-width: 300px;
-        height: 220px;
-      }
+.cta {
+  background:linear-gradient(120deg,#103b75,#09264b);
+  color:white;
+  text-align:center;
+}
 
-      .cards {
-        grid-template-columns: 1fr;
-      }
+.cta h2 {
+  font-size:32px;
+  margin-bottom:12px;
+}
 
-      section {
-        padding: 50px 7%;
-      }
-    }
-  </style>
+.cta p {
+  color:#dceaff;
+  margin-bottom:24px;
+}
+
+.cta .btn {
+  background:white;
+  color:var(--blue);
+}
+
+footer {
+  background:#071e3b;
+  color:white;
+  padding:40px 22px;
+}
+
+.footer-inner {
+  max-width:1150px;
+  margin:auto;
+  display:flex;
+  justify-content:space-between;
+  flex-wrap:wrap;
+  gap:25px;
+}
+
+footer p {
+  color:#c4d5ed;
+  font-size:13px;
+}
+
+footer a { color:#c4d5ed; }
+
+@media(max-width:800px) {
+  .menu-btn { display:block; }
+
+  nav {
+    display:none;
+    width:100%;
+    flex-direction:column;
+    align-items:flex-start;
+    padding:20px 0 5px;
+    gap:17px;
+  }
+
+  nav.open { display:flex; }
+
+  .hero-inner {
+    grid-template-columns:1fr;
+    text-align:center;
+  }
+
+  .hero p {
+    margin-left:auto;
+    margin-right:auto;
+  }
+
+  .hero-art { min-height:230px; }
+
+  .grid { grid-template-columns:1fr; }
+
+  section { padding:55px 20px; }
+}
+</style>
 </head>
 
 <body>
 
 <header>
-  <div class="logo">MathConect.</div>
+  <div class="navbar">
+    <a href="index.html" class="logo">Math<span>Conect.</span></a>
 
-  <button class="menu" onclick="toggleMenu()">☰</button>
+    <button class="menu-btn" onclick="toggleMenu()" aria-label="Open navigation">
+      ☰
+    </button>
 
-  <nav id="navigation">
-    <a href="#home" onclick="closeMenu()">Home</a>
-    <a href="#courses" onclick="closeMenu()">Courses</a>
-    <a href="#practice" onclick="closeMenu()">CBT Practice</a>
-    <a href="#about" onclick="closeMenu()">About</a>
-    <a href="#contact" onclick="closeMenu()">Contact</a>
-    <a href="register.html">Register</a>
-  </nav>
+    <nav id="navigation">
+      <a href="index.html" onclick="closeMenu()">Home</a>
+      <a href="courses.html" onclick="closeMenu()">Courses</a>
+      <a href="cbt.html" onclick="closeMenu()">CBT</a>
+      <a href="dashboard.html" onclick="closeMenu()">Dashboard</a>
+      <a href="#about" onclick="closeMenu()">About</a>
+      <a href="#contact" onclick="closeMenu()">Contact</a>
+      <a href="login.html" onclick="closeMenu()">Login</a>
+      <a href="register.html" class="btn" onclick="closeMenu()">Join Now</a>
+    </nav>
+  </div>
 </header>
 
 <main>
-  <section class="hero" id="home">
-    <div class="hero-content">
-      <div class="tag">WELCOME TO MATHCONECT</div>
 
-      <h1>Learn Mathematics.<br>
+<section class="hero">
+  <div class="hero-inner">
+
+    <div>
+      <div class="tag">YOUR LEARNING JOURNEY STARTS HERE</div>
+
+      <h1>
+        Learn Smarter.<br>
         <span>Connect Knowledge.</span>
       </h1>
 
       <p>
-        Your online destination for mathematics learning,
-        tutorials, academic resources and examination practice.
-        Learn together and grow together.
+        Welcome to MathConect, an intelligent learning
+        platform for students. Learn mathematics, practise
+        for examinations, access learning resources and
+        connect with tutors.
       </p>
 
-      <a href="#courses" class="btn">Explore Courses</a>
-      <a href="#about" class="btn btn-outline">Learn More</a>
+      <a href="register.html" class="btn">Create Free Account</a>
+      <a href="courses.html" class="btn btn-light">Explore Courses</a>
     </div>
 
-    <div class="math-art">
-      ∑ π ∞<br>√x  ÷  ∫
-    </div>
-  </section>
-
-  <section id="courses">
-    <div class="section-title">
-      <h2>Explore Our Courses</h2>
-      <p>Build your knowledge one lesson at a time.</p>
+    <div class="hero-art">
+      <h2>Think. Learn. Grow.</h2>
+      <div class="formula">∑ π ∞ √x ∫</div>
+      <p>Knowledge connects your future.</p>
     </div>
 
-    <div class="cards">
+  </div>
+</section>
+
+<section id="services">
+  <div class="container">
+
+    <div class="section-heading">
+      <h2>Explore MathConect</h2>
+      <p>Everything you need to improve your learning experience.</p>
+    </div>
+
+    <div class="grid">
+
       <div class="card">
-        <div class="symbol">📐</div>
-        <h3>Pure Mathematics</h3>
-        <p>Explore algebra, calculus, geometry and other mathematical topics.</p>
-        <a href="#contact">Explore →</a>
+        <div class="icon">🤖</div>
+        <h3>AI Learning</h3>
+        <p>
+          Our planned AI learning assistant will help students
+          understand difficult concepts through guided explanations.
+        </p>
+        <span>Coming soon</span>
       </div>
 
       <div class="card">
-        <div class="symbol">📊</div>
-        <h3>Statistics</h3>
-        <p>Understand probability, data analysis and statistical methods.</p>
-        <a href="#contact">Explore →</a>
+        <div class="icon">📚</div>
+        <h3>Online Courses</h3>
+        <p>
+          Explore mathematics courses, including algebra,
+          calculus, geometry and statistics.
+        </p>
+        <a href="courses.html">Explore Courses →</a>
       </div>
 
       <div class="card">
-        <div class="symbol">⚛️</div>
-        <h3>Physics</h3>
-        <p>Learn important physics principles and solve problems.</p>
-        <a href="#contact">Explore →</a>
+        <div class="icon">💻</div>
+        <h3>CBT Examination</h3>
+        <p>
+          Practise examination questions, test your knowledge
+          and review your performance.
+        </p>
+        <a href="cbt.html">Start Practising →</a>
       </div>
+
+      <div class="card">
+        <div class="icon">👨‍🏫</div>
+        <h3>Online Academy</h3>
+        <p>
+          Learn through guided tutorials, revision classes
+          and collaborative study.
+        </p>
+        <a href="#contact">Learn More →</a>
+      </div>
+
+      <div class="card">
+        <div class="icon">📊</div>
+        <h3>Student Dashboard</h3>
+        <p>
+          Access your profile, examination history
+          and learning activities.
+        </p>
+        <a href="dashboard.html">Open Dashboard →</a>
+      </div>
+
+      <div class="card">
+        <div class="icon">🤝</div>
+        <h3>Student Community</h3>
+        <p>
+          Connect with other learners and grow through
+          academic collaboration.
+        </p>
+        <a href="#contact">Discover More →</a>
+      </div>
+
     </div>
-  </section>
+  </div>
+</section>
 
-  <section id="practice" class="about">
-    <div class="section-title">
-      <h2>Test Your Knowledge</h2>
-      <p>Prepare for examinations through practice and revision.</p>
+<section class="features" id="about">
+  <div class="container">
+
+    <div class="section-heading">
+      <h2>Why Choose MathConect?</h2>
+      <p>Learning should be accessible, organised and practical.</p>
     </div>
 
-    <div class="cards">
-      <div class="card">
-        <div class="symbol">💻</div>
-        <h3>CBT Practice</h3>
-        <p>Prepare for computer-based examinations.</p>
-        <a href="#contact">Start Learning →</a>
+    <div class="grid">
+
+      <div class="feature">
+        <div class="feature-icon">🎯</div>
+        <div>
+          <h3>Learn at Your Pace</h3>
+          <p>Study different topics and improve gradually.</p>
+        </div>
       </div>
 
-      <div class="card">
-        <div class="symbol">📚</div>
-        <h3>Study Materials</h3>
-        <p>Access useful notes, formulas and learning resources.</p>
-        <a href="#contact">Explore Resources →</a>
+      <div class="feature">
+        <div class="feature-icon">📈</div>
+        <div>
+          <h3>Track Your Progress</h3>
+          <p>Review your CBT scores and learning history.</p>
+        </div>
       </div>
 
-      <div class="card">
-        <div class="symbol">👨‍🏫</div>
-        <h3>Online Tutorials</h3>
-        <p>Learn through guided lessons and group discussions.</p>
-        <a href="#contact">Join Tutorials →</a>
+      <div class="feature">
+        <div class="feature-icon">🌍</div>
+        <div>
+          <h3>Learn Together</h3>
+          <p>Build connections with other students and tutors.</p>
+        </div>
       </div>
+
     </div>
-  </section>
+  </div>
+</section>
 
-  <section id="about" class="about">
-    <h2>About MathConect</h2>
+<section class="cta" id="contact">
+  <div class="container">
+    <h2>Build Your Academic Future</h2>
     <p>
-      MathConect is an educational initiative designed to
-      connect students with mathematics knowledge, learning
-      resources and collaborative academic opportunities.
+      Start learning, practise regularly and connect with
+      the MathConect community.
     </p>
-    <p>
-      Our mission is to make mathematics easier to understand
-      and more accessible to students.
-    </p>
-  </section>
+    <a href="register.html" class="btn">Join MathConect Today</a>
+  </div>
+</section>
 
-  <section class="cta" id="contact">
-    <h2>Start Your Learning Journey</h2>
-    <p>Connect with MathConect and grow your knowledge.</p>
-    <a class="btn" href="mailto:YOUR_EMAIL@example.com">
-      Contact MathConect
-    </a>
-  </section>
 </main>
 
 <footer>
-  <h2>MathConect.</h2>
-  <p>Learn Mathematics. Connect Knowledge.</p>
-  <p>© <span id="year"></span> MathConect. All rights reserved.</p>
+  <div class="footer-inner">
+    <div>
+      <h2>MathConect.</h2>
+      <p>Learn Mathematics. Connect Knowledge.</p>
+    </div>
+
+    <div>
+      <p><a href="courses.html">Courses</a></p>
+      <p><a href="cbt.html">CBT Practice</a></p>
+      <p><a href="login.html">Student Login</a></p>
+    </div>
+
+    <div>
+      <p>© <span id="year"></span> MathConect.</p>
+      <p>Built for students, by students.</p>
+    </div>
+  </div>
 </footer>
 
 <script>
-  function toggleMenu() {
-    document.getElementById("navigation").classList.toggle("open");
-  }
+function toggleMenu() {
+  document.getElementById("navigation").classList.toggle("open");
+}
 
-  function closeMenu() {
-    document.getElementById("navigation").classList.remove("open");
-  }
+function closeMenu() {
+  document.getElementById("navigation").classList.remove("open");
+}
 
-  document.getElementById("year").textContent =
-    new Date().getFullYear();
+document.getElementById("year").textContent =
+  new Date().getFullYear();
 </script>
 
 </body>
