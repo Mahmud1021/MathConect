@@ -384,10 +384,13 @@ auth.onAuthStateChanged(user => {
   document.getElementById("loading").hidden = true;
   document.getElementById("exam").hidden = false;
 
-  showQuestion();
-  updateTimer();
+showQuestion();
 
-  timerId = setInterval(updateTimer, 1000);
+examEndTime = Date.now() + 600000;
+
+updateTimer();
+
+timerId = setInterval(updateTimer, 1000);
 });
 </script>
 
