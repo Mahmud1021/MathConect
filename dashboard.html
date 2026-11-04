@@ -2,146 +2,423 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>MathConect | Student Dashboard</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#103b75">
+<title>MathConect | Student Dashboard</title>
 
-  <style>
-    * { box-sizing: border-box; }
+<style>
+:root {
+  --blue:#1769d2;
+  --dark:#103b75;
+  --navy:#09264b;
+  --bg:#f3f7fd;
+  --white:#fff;
+  --text:#263b57;
+  --muted:#718096;
+  --border:#e4ebf4;
+  --green:#15945b;
+}
 
-    body {
-      margin: 0;
-      font-family: Arial, sans-serif;
-      background: #f1f6fc;
-      color: #183153;
-    }
+* {
+  box-sizing:border-box;
+  margin:0;
+  padding:0;
+}
 
-    header {
-      background: #0756a5;
-      color: white;
-      padding: 22px;
-    }
+body {
+  font-family:Arial,sans-serif;
+  background:var(--bg);
+  color:var(--text);
+  line-height:1.6;
+}
 
-    header h1 { margin: 0 0 8px; }
+a {text-decoration:none;color:inherit;}
 
-    main {
-      max-width: 850px;
-      margin: 25px auto;
-      padding: 15px;
-    }
+.topbar {
+  background:white;
+  padding:16px 22px;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  box-shadow:0 2px 12px #102b5010;
+  position:sticky;
+  top:0;
+  z-index:10;
+}
 
-    .card {
-      background: white;
-      padding: 22px;
-      margin: 15px 0;
-      border-radius: 12px;
-      box-shadow: 0 2px 8px #0001;
-    }
+.logo {
+  font-size:23px;
+  font-weight:800;
+  color:var(--blue);
+}
 
-    .card h2 { color: #0756a5; }
+.logo span {color:var(--dark);}
 
-    .details {
-      line-height: 1.9;
-      overflow-wrap: anywhere;
-    }
+.top-links {
+  display:flex;
+  gap:18px;
+  align-items:center;
+  flex-wrap:wrap;
+}
 
-    a, button {
-      display: inline-block;
-      background: #0756a5;
-      color: white;
-      padding: 12px 18px;
-      margin-top: 8px;
-      border: 0;
-      border-radius: 7px;
-      text-decoration: none;
-      cursor: pointer;
-      font-size: 15px;
-    }
+.top-links a {
+  font-size:14px;
+  font-weight:bold;
+  color:var(--text);
+}
 
-    button.logout { background: #b42318; }
+.top-links a:hover {color:var(--blue);}
 
-    #message, #resultsMessage {
-      overflow-wrap: anywhere;
-    }
+.logout {
+  background:#fff0f0;
+  color:#bd3030;
+  border:0;
+  border-radius:8px;
+  padding:10px 15px;
+  cursor:pointer;
+  font-weight:bold;
+}
 
-    .result-item {
-      border: 1px solid #dbe7f5;
-      border-left: 4px solid #0756a5;
-      padding: 14px;
-      margin: 12px 0;
-      border-radius: 7px;
-      background: #f8fbff;
-    }
+.container {
+  max-width:1150px;
+  margin:30px auto;
+  padding:0 20px;
+}
 
-    .result-item p {
-      margin: 7px 0;
-      line-height: 1.5;
-    }
+.welcome {
+  background:linear-gradient(120deg,#1769d2,#092b59);
+  color:white;
+  padding:32px;
+  border-radius:18px;
+  margin-bottom:25px;
+  box-shadow:0 10px 30px #1769d225;
+}
 
-    .score {
-      color: #0756a5;
-      font-weight: bold;
-      font-size: 18px;
-    }
+.welcome h1 {
+  font-size:clamp(25px,4vw,35px);
+  margin-bottom:8px;
+}
 
-    footer {
-      text-align: center;
-      padding: 20px;
-      color: #64748b;
-    }
-  </style>
+.welcome p {color:#e1edff;}
+
+.section-title {
+  font-size:21px;
+  color:var(--navy);
+  margin:28px 0 16px;
+}
+
+.stats {
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:17px;
+}
+
+.stat-card {
+  background:white;
+  border:1px solid var(--border);
+  padding:22px;
+  border-radius:14px;
+  box-shadow:0 3px 12px #102b5007;
+}
+
+.stat-card .icon {
+  font-size:25px;
+  margin-bottom:8px;
+}
+
+.stat-card p {
+  color:var(--muted);
+  font-size:13px;
+}
+
+.stat-card h2 {
+  color:var(--blue);
+  font-size:28px;
+  margin-top:5px;
+}
+
+.grid {
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:18px;
+}
+
+.panel {
+  background:white;
+  padding:23px;
+  border-radius:14px;
+  border:1px solid var(--border);
+  box-shadow:0 3px 12px #102b5007;
+}
+
+.panel h2 {
+  font-size:19px;
+  color:var(--dark);
+  margin-bottom:14px;
+}
+
+.profile-info p {
+  padding:10px 0;
+  border-bottom:1px solid var(--border);
+  overflow-wrap:anywhere;
+}
+
+.profile-info p:last-child {border:0;}
+
+.label {
+  color:var(--muted);
+  font-size:13px;
+}
+
+.value {
+  font-weight:bold;
+  color:var(--text);
+}
+
+.quick-links {
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:12px;
+}
+
+.quick-link {
+  background:#f2f7ff;
+  padding:17px;
+  border-radius:11px;
+  border:1px solid #e0ebfb;
+  transition:.2s;
+}
+
+.quick-link:hover {
+  background:#e3efff;
+  transform:translateY(-2px);
+}
+
+.quick-link strong {
+  display:block;
+  color:var(--dark);
+}
+
+.quick-link span {
+  font-size:13px;
+  color:var(--muted);
+}
+
+.results-panel {
+  background:white;
+  padding:23px;
+  border-radius:14px;
+  border:1px solid var(--border);
+  margin-top:20px;
+}
+
+.results-panel h2 {
+  color:var(--dark);
+  margin-bottom:12px;
+}
+
+.result-item {
+  padding:17px;
+  border:1px solid var(--border);
+  border-left:4px solid var(--blue);
+  border-radius:10px;
+  margin-top:13px;
+  background:#fbfdff;
+}
+
+.result-item h3 {
+  color:var(--dark);
+  font-size:17px;
+  margin-bottom:7px;
+}
+
+.result-item p {
+  font-size:14px;
+  margin:4px 0;
+  color:var(--muted);
+}
+
+.result-score {
+  font-size:18px !important;
+  font-weight:bold;
+  color:var(--blue) !important;
+}
+
+.empty {
+  background:#f3f7fd;
+  padding:18px;
+  border-radius:10px;
+  color:var(--muted);
+  margin-top:12px;
+}
+
+.profile-button {
+  display:inline-block;
+  background:var(--blue);
+  color:white;
+  padding:11px 17px;
+  border-radius:8px;
+  font-weight:bold;
+  margin-top:15px;
+}
+
+.status {
+  color:var(--muted);
+  font-size:14px;
+  margin-top:10px;
+  overflow-wrap:anywhere;
+}
+
+footer {
+  text-align:center;
+  padding:25px 15px;
+  color:var(--muted);
+  font-size:13px;
+  margin-top:35px;
+}
+
+@media(max-width:700px) {
+  .topbar {
+    align-items:flex-start;
+    flex-direction:column;
+    gap:12px;
+  }
+
+  .top-links {gap:12px;}
+
+  .stats {grid-template-columns:1fr;}
+
+  .grid {grid-template-columns:1fr;}
+
+  .quick-links {grid-template-columns:1fr 1fr;}
+
+  .container {padding:0 13px;}
+
+  .welcome {padding:24px;}
+}
+</style>
 </head>
 
 <body>
 
-<header>
-  <h1>MathConect.</h1>
-  <p>Student Dashboard</p>
+<header class="topbar">
+  <a href="index.html" class="logo">
+    Math<span>Conect.</span>
+  </a>
+
+  <nav class="top-links">
+    <a href="index.html">Home</a>
+    <a href="courses.html">Courses</a>
+    <a href="cbt.html">CBT</a>
+    <a href="profile.html">Profile</a>
+    <button class="logout" id="logoutBtn">Log Out</button>
+  </nav>
 </header>
 
-<main>
+<main class="container">
 
-  <div class="card">
-    <h2 id="welcome">Welcome!</h2>
-    <p id="message">Loading your student profile...</p>
+  <section class="welcome">
+    <h1 id="welcome">Welcome to MathConect!</h1>
+    <p>Your learning journey continues here. Learn, practise and improve.</p>
+    <p class="status" id="message">Loading your student information...</p>
+  </section>
 
-    <div class="details">
-      <p><strong>Email:</strong> <span id="studentEmail">Loading...</span></p>
-      <p><strong>University:</strong> <span id="university">Loading...</span></p>
-      <p><strong>Course:</strong> <span id="course">Loading...</span></p>
+  <h2 class="section-title">Your Academic Overview</h2>
+
+  <section class="stats">
+
+    <div class="stat-card">
+      <div class="icon">📝</div>
+      <p>Examinations Completed</p>
+      <h2 id="totalExams">--</h2>
     </div>
 
-    <a href="profile.html">Edit My Profile</a>
-  </div>
+    <div class="stat-card">
+      <div class="icon">📊</div>
+      <p>Average Percentage</p>
+      <h2 id="averageScore">--</h2>
+    </div>
 
-  <div class="card">
-    <h2>My Learning</h2>
-    <p>Explore mathematics learning resources and courses.</p>
-    <a href="courses.html">View Courses</a>
-  </div>
+    <div class="stat-card">
+      <div class="icon">🏆</div>
+      <p>Best Percentage</p>
+      <h2 id="bestScore">--</h2>
+    </div>
 
-  <div class="card">
-    <h2>CBT Practice</h2>
-    <p>Prepare for your examinations with mathematics practice.</p>
-    <a href="cbt.html">Start CBT Practice</a>
-  </div>
+  </section>
 
-  <div class="card">
-    <h2>My CBT Results</h2>
-    <p>View your previous examination scores and progress.</p>
-    <p id="resultsMessage">Loading your examination history...</p>
+  <h2 class="section-title">My Learning Space</h2>
+
+  <section class="grid">
+
+    <div class="panel">
+      <h2>👤 My Student Profile</h2>
+
+      <div class="profile-info">
+        <p>
+          <span class="label">Email</span><br>
+          <span class="value" id="studentEmail">Loading...</span>
+        </p>
+
+        <p>
+          <span class="label">University</span><br>
+          <span class="value" id="university">Loading...</span>
+        </p>
+
+        <p>
+          <span class="label">Course</span><br>
+          <span class="value" id="course">Loading...</span>
+        </p>
+      </div>
+
+      <a href="profile.html" class="profile-button">Edit My Profile</a>
+    </div>
+
+    <div class="panel">
+      <h2>🚀 Quick Access</h2>
+
+      <div class="quick-links">
+
+        <a href="courses.html" class="quick-link">
+          <strong>📚 Courses</strong>
+          <span>Explore learning</span>
+        </a>
+
+        <a href="cbt.html" class="quick-link">
+          <strong>💻 CBT Practice</strong>
+          <span>Test your knowledge</span>
+        </a>
+
+        <a href="profile.html" class="quick-link">
+          <strong>👤 My Profile</strong>
+          <span>Update information</span>
+        </a>
+
+        <a href="index.html" class="quick-link">
+          <strong>🏠 Homepage</strong>
+          <span>Back to home</span>
+        </a>
+
+      </div>
+    </div>
+
+  </section>
+
+  <section class="results-panel">
+    <h2>📈 My Examination History</h2>
+
+    <p id="resultsMessage" class="status">
+      Loading your examination history...
+    </p>
+
     <div id="resultsList"></div>
-  </div>
-
-  <div class="card">
-    <h2>Account</h2>
-    <button class="logout" id="logoutBtn">Log Out</button>
-  </div>
+  </section>
 
 </main>
 
 <footer>
-  <p>MathConect © 2026. Learn Mathematics. Connect Knowledge.</p>
+  <p>© <span id="year"></span> MathConect. Learn Mathematics. Connect Knowledge.</p>
 </footer>
 
 <script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-app-compat.js"></script>
@@ -149,6 +426,9 @@
 <script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-firestore-compat.js"></script>
 
 <script>
+
+// KEEP YOUR EXISTING FIREBASE PROJECT SETTINGS
+
 const firebaseConfig = {
   apiKey: "AIzaSyD-Rq8jeNeGHNApk1fbbTKiSgDxHWKM5tI",
   authDomain: "mathconnect-b54be.firebaseapp.com",
@@ -163,6 +443,9 @@ firebase.initializeApp(firebaseConfig);
 const auth = firebase.auth();
 const db = firebase.firestore();
 
+document.getElementById("year").textContent =
+  new Date().getFullYear();
+
 auth.onAuthStateChanged(async user => {
 
   if (!user) {
@@ -174,14 +457,17 @@ auth.onAuthStateChanged(async user => {
     user.email || "Not available";
 
   try {
+
     const doc = await db.collection("students")
       .doc(user.uid)
       .get();
 
     if (doc.exists) {
+
       const data = doc.data();
 
-      const name = data.fullName || user.displayName || "Student";
+      const name = data.fullName ||
+        user.displayName || "Student";
 
       document.getElementById("welcome").textContent =
         "Welcome, " + name + "!";
@@ -193,9 +479,10 @@ auth.onAuthStateChanged(async user => {
         data.course || "Not provided";
 
       document.getElementById("message").textContent =
-        "Your student profile is ready.";
+        "Your student profile is ready. Keep learning!";
 
     } else {
+
       document.getElementById("welcome").textContent =
         "Welcome, " + (user.displayName || "Student") + "!";
 
@@ -207,25 +494,34 @@ auth.onAuthStateChanged(async user => {
 
       document.getElementById("course").textContent =
         "Not provided";
+
     }
 
     await loadCBTResults(user.uid);
 
   } catch (error) {
+
     document.getElementById("message").textContent =
       "Unable to load profile: " + error.message;
 
     document.getElementById("resultsMessage").textContent =
       "Unable to load examination history.";
+
   }
+
 });
+
 
 async function loadCBTResults(userId) {
 
-  const message = document.getElementById("resultsMessage");
-  const list = document.getElementById("resultsList");
+  const message =
+    document.getElementById("resultsMessage");
+
+  const list =
+    document.getElementById("resultsList");
 
   try {
+
     const snapshot = await db.collection("students")
       .doc(userId)
       .collection("examResults")
@@ -235,32 +531,47 @@ async function loadCBTResults(userId) {
     list.innerHTML = "";
 
     if (snapshot.empty) {
+
       message.textContent =
         "No examination results yet. Start your first CBT!";
+
+      document.getElementById("totalExams").textContent = "0";
+      document.getElementById("averageScore").textContent = "0%";
+      document.getElementById("bestScore").textContent = "0%";
+
       return;
     }
 
-    message.textContent =
-      "You have completed " + snapshot.size + " examination(s).";
+    const percentages = [];
 
     snapshot.forEach(doc => {
 
       const data = doc.data();
 
+      const percentage = Number(data.percentage);
+
+      if (Number.isFinite(percentage)) {
+        percentages.push(percentage);
+      }
+
       const item = document.createElement("div");
       item.className = "result-item";
 
       const title = document.createElement("h3");
-      title.textContent = data.examTitle || "Mathematics CBT";
+      title.textContent =
+        data.examTitle || "Mathematics CBT";
 
       const score = document.createElement("p");
-      score.className = "score";
+      score.className = "result-score";
+
       score.textContent =
         "Score: " + data.score + " / " + data.total;
 
-      const percentage = document.createElement("p");
-      percentage.textContent =
-        "Percentage: " + data.percentage + "%";
+      const percent = document.createElement("p");
+
+      percent.textContent =
+        "Percentage: " +
+        (Number.isFinite(percentage) ? percentage + "%" : "Not available");
 
       const date = document.createElement("p");
 
@@ -268,38 +579,83 @@ async function loadCBTResults(userId) {
 
       if (data.completedAt &&
           typeof data.completedAt.toDate === "function") {
+
         dateText = "Date: " +
           data.completedAt.toDate().toLocaleString();
+
       }
 
       date.textContent = dateText;
 
       item.appendChild(title);
       item.appendChild(score);
-      item.appendChild(percentage);
+      item.appendChild(percent);
       item.appendChild(date);
 
       list.appendChild(item);
+
     });
 
+    message.textContent =
+      "You have completed " + snapshot.size +
+      " examination(s).";
+
+    document.getElementById("totalExams").textContent =
+      snapshot.size;
+
+    if (percentages.length > 0) {
+
+      const average =
+        percentages.reduce((a,b) => a + b, 0) /
+        percentages.length;
+
+      const best = Math.max(...percentages);
+
+      document.getElementById("averageScore").textContent =
+        average.toFixed(1) + "%";
+
+      document.getElementById("bestScore").textContent =
+        best.toFixed(1) + "%";
+
+    } else {
+
+      document.getElementById("averageScore").textContent =
+        "N/A";
+
+      document.getElementById("bestScore").textContent =
+        "N/A";
+
+    }
+
   } catch (error) {
+
     message.textContent =
       "Unable to load results: " + error.message;
+
   }
+
 }
+
 
 document.getElementById("logoutBtn").addEventListener(
   "click",
   async () => {
+
     try {
+
       await auth.signOut();
       window.location.href = "login.html";
+
     } catch (error) {
+
       document.getElementById("message").textContent =
         "Logout failed: " + error.message;
+
     }
+
   }
 );
+
 </script>
 
 </body>
