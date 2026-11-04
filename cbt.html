@@ -271,6 +271,11 @@ function move(direction) {
 }
 
 function updateTimer() {
+  remaining = Math.max(
+    0,
+    Math.ceil((examEndTime - Date.now()) / 1000)
+  );
+
   const minutes = Math.floor(remaining / 60);
   const seconds = remaining % 60;
 
@@ -280,10 +285,7 @@ function updateTimer() {
   if (remaining <= 0) {
     clearInterval(timerId);
     submitExam();
-    return;
   }
-
-  remaining--;
 }
 
 async function submitExam() {
