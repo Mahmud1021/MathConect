@@ -3,54 +3,228 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>MathConect Student Profile</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>MathConect | Student Profile</title>
+
   <style>
+    * {
+      box-sizing: border-box;
+    }
+
     body {
+      margin: 0;
+      padding: 20px;
       font-family: Arial, sans-serif;
       background: #f1f6fc;
       color: #183153;
-      padding: 20px;
     }
-    .box {
-      max-width: 420px;
-      margin: 30px auto;
+
+    .container {
+      max-width: 520px;
+      margin: 35px auto;
+    }
+
+    .header {
+      text-align: center;
+      margin-bottom: 25px;
+    }
+
+    .logo {
+      color: #0756a5;
+      font-size: 30px;
+      font-weight: bold;
+    }
+
+    .header p {
+      color: #66788a;
+    }
+
+    .card {
       background: white;
-      padding: 24px;
-      border-radius: 12px;
+      padding: 28px;
+      border-radius: 16px;
+      box-shadow: 0 5px 20px rgba(0,0,0,0.06);
     }
-    input, button {
-      box-sizing: border-box;
-      width: 100%;
-      padding: 13px;
-      margin: 9px 0;
-      border-radius: 7px;
-    }
-    input { border: 1px solid #bbb; }
-    button {
-      border: 0;
+
+    .avatar {
+      width: 75px;
+      height: 75px;
+      margin: 0 auto 15px;
+      border-radius: 50%;
       background: #0756a5;
       color: white;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 30px;
+      font-weight: bold;
     }
-    #message { overflow-wrap: anywhere; }
+
+    h2 {
+      text-align: center;
+      margin-bottom: 8px;
+    }
+
+    .description {
+      text-align: center;
+      color: #718096;
+      font-size: 14px;
+      margin-bottom: 25px;
+    }
+
+    .email-box {
+      background: #f1f6fc;
+      padding: 13px;
+      border-radius: 8px;
+      margin-bottom: 20px;
+      overflow-wrap: anywhere;
+      font-size: 14px;
+    }
+
+    label {
+      display: block;
+      font-weight: bold;
+      margin: 15px 0 7px;
+      font-size: 14px;
+    }
+
+    input {
+      width: 100%;
+      padding: 14px;
+      border: 1px solid #ccd6e0;
+      border-radius: 8px;
+      font-size: 15px;
+      outline: none;
+    }
+
+    input:focus {
+      border-color: #0756a5;
+      box-shadow: 0 0 0 2px rgba(7,86,165,0.1);
+    }
+
+    button {
+      width: 100%;
+      padding: 14px;
+      border: none;
+      border-radius: 8px;
+      background: #0756a5;
+      color: white;
+      font-size: 15px;
+      font-weight: bold;
+      cursor: pointer;
+      margin-top: 22px;
+    }
+
+    button:disabled {
+      opacity: 0.6;
+      cursor: not-allowed;
+    }
+
+    .links {
+      display: flex;
+      justify-content: space-between;
+      gap: 12px;
+      margin-top: 22px;
+      flex-wrap: wrap;
+    }
+
+    .links a {
+      color: #0756a5;
+      text-decoration: none;
+      font-size: 14px;
+      font-weight: bold;
+    }
+
+    #message {
+      text-align: center;
+      font-size: 14px;
+      overflow-wrap: anywhere;
+      margin-top: 16px;
+    }
+
+    .footer {
+      text-align: center;
+      margin-top: 25px;
+      color: #8290a0;
+      font-size: 12px;
+    }
   </style>
 </head>
+
 <body>
-<div class="box">
-  <h1>MathConect</h1>
-  <h2>Complete Your Student Profile</h2>
 
-  <p id="email"></p>
+<div class="container">
 
-  <form id="profileForm">
-    <input id="name" placeholder="Full name" required>
-    <input id="university" placeholder="University" required>
-    <input id="course" placeholder="Course of study" required>
-    <button type="submit">Save Profile</button>
-  </form>
+  <div class="header">
+    <div class="logo">MathConect</div>
+    <p>Learn • Practice • Excel</p>
+  </div>
 
-  <p id="message"></p>
-  <a href="dashboard.html">Back to Dashboard</a>
+  <div class="card">
+
+    <div class="avatar" id="avatar">M</div>
+
+    <h2>Student Profile</h2>
+
+    <p class="description">
+      Manage your academic information.
+    </p>
+
+    <div class="email-box">
+      <strong>Email address:</strong>
+      <p id="email">Loading...</p>
+    </div>
+
+    <form id="profileForm">
+
+      <label for="name">Full Name</label>
+      <input
+        type="text"
+        id="name"
+        placeholder="Enter your full name"
+        maxlength="100"
+        required
+      >
+
+      <label for="university">University</label>
+      <input
+        type="text"
+        id="university"
+        placeholder="Enter your university"
+        maxlength="150"
+        required
+      >
+
+      <label for="course">Course of Study</label>
+      <input
+        type="text"
+        id="course"
+        placeholder="Enter your course"
+        maxlength="100"
+        required
+      >
+
+      <button type="submit" id="saveButton">
+        Save Profile
+      </button>
+
+    </form>
+
+    <p id="message" role="status" aria-live="polite"></p>
+
+    <div class="links">
+      <a href="dashboard.html">← Dashboard</a>
+      <a href="#" id="logout">Logout</a>
+    </div>
+
+  </div>
+
+  <div class="footer">
+    Mathematics Connects Ideas to Opportunities.
+    <br><br>
+    © 2026 MathConect
+  </div>
+
 </div>
 
 <script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-app-compat.js"></script>
@@ -64,7 +238,7 @@ const firebaseConfig = {
   projectId: "mathconnect-b54be",
   storageBucket: "mathconnect-b54be.firebasestorage.app",
   messagingSenderId: "991575705508",
-  appId: "1:991575705508:web:fb9c5d9790eb732389a331"
+  appId: "1:575705508:web:fb9c5d9790eb732389a331"
 };
 
 firebase.initializeApp(firebaseConfig);
@@ -74,65 +248,138 @@ const db = firebase.firestore();
 
 let currentUser = null;
 
+const form = document.getElementById("profileForm");
+const message = document.getElementById("message");
+const saveButton = document.getElementById("saveButton");
+const avatar = document.getElementById("avatar");
+
+function showMessage(text, success) {
+  message.textContent = text;
+  message.style.color = success ? "#16803c" : "#c0392b";
+}
+
 auth.onAuthStateChanged(async user => {
+
   if (!user) {
     window.location.href = "login.html";
     return;
   }
 
   currentUser = user;
-  document.getElementById("email").textContent = user.email;
+
+  document.getElementById("email").textContent =
+    user.email || "Email unavailable";
 
   try {
-    const doc = await db.collection("students").doc(user.uid).get();
+
+    const doc = await db.collection("students")
+      .doc(user.uid)
+      .get();
 
     if (doc.exists) {
       const data = doc.data();
-      document.getElementById("name").value = data.fullName || user.displayName || "";
-      document.getElementById("university").value = data.university || "";
-      document.getElementById("course").value = data.course || "";
+
+      document.getElementById("name").value =
+        data.fullName || user.displayName || "";
+
+      document.getElementById("university").value =
+        data.university || "";
+
+      document.getElementById("course").value =
+        data.course || "";
+
     } else {
-      document.getElementById("name").value = user.displayName || "";
+      document.getElementById("name").value =
+        user.displayName || "";
     }
+
+    avatar.textContent =
+      (document.getElementById("name").value.trim()[0] || "M")
+      .toUpperCase();
+
   } catch (error) {
-    document.getElementById("message").textContent =
-      "Could not load profile: " + error.message;
+    showMessage("Could not load profile: " + error.message, false);
   }
+
 });
 
-document.getElementById("profileForm").addEventListener("submit", async event => {
+document.getElementById("name").addEventListener("input", event => {
+  avatar.textContent =
+    (event.target.value.trim()[0] || "M").toUpperCase();
+});
+
+form.addEventListener("submit", async event => {
+
   event.preventDefault();
 
-  if (!currentUser) return;
+  if (!currentUser) {
+    showMessage("Please log in again.", false);
+    return;
+  }
 
   const name = document.getElementById("name").value.trim();
   const university = document.getElementById("university").value.trim();
   const course = document.getElementById("course").value.trim();
-  const message = document.getElementById("message");
 
   if (!name || !university || !course) {
-    message.textContent = "Please complete all fields.";
+    showMessage("Please complete all fields.", false);
     return;
   }
 
-  message.textContent = "Saving profile...";
+  saveButton.disabled = true;
+  saveButton.textContent = "Saving...";
+  showMessage("Saving your profile...", true);
 
   try {
-    await currentUser.updateProfile({ displayName: name });
 
-    await db.collection("students").doc(currentUser.uid).set({
-      fullName: name,
-      email: currentUser.email,
-      university: university,
-      course: course,
-      updatedAt: firebase.firestore.FieldValue.serverTimestamp()
-    }, { merge: true });
+    await currentUser.updateProfile({
+      displayName: name
+    });
 
-    message.textContent = "Your student profile has been saved successfully!";
+    await db.collection("students")
+      .doc(currentUser.uid)
+      .set({
+        fullName: name,
+        email: currentUser.email,
+        university: university,
+        course: course,
+        updatedAt: firebase.firestore.FieldValue.serverTimestamp()
+      }, { merge: true });
+
+    showMessage(
+      "Your profile has been saved successfully!",
+      true
+    );
+
   } catch (error) {
-    message.textContent = "Could not save profile: " + error.message;
+
+    showMessage(
+      "Could not save profile: " + error.message,
+      false
+    );
+
+  } finally {
+
+    saveButton.disabled = false;
+    saveButton.textContent = "Save Profile";
+
   }
+
+});
+
+document.getElementById("logout").addEventListener("click", async event => {
+
+  event.preventDefault();
+
+  try {
+    await auth.signOut();
+    window.location.href = "login.html";
+  } catch (error) {
+    showMessage("Logout failed: " + error.message, false);
+  }
+
 });
 </script>
+
 </body>
 </html>
